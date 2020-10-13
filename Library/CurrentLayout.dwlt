@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 8
-    y: 51
+    x: 2153
+    y: 409
     width: 1904
     height: 981
   m_ShowMode: 4
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 77
+  controlID: 18
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 40
+  controlID: 19
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 41
+  controlID: 20
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -578,10 +578,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 8
-    y: 737
+    x: 0
+    y: 678
     width: 1525
-    height: 255
+    height: 251
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SearchFilter:
     m_NameFilter: 
@@ -595,20 +595,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 95
   m_LastFolders:
-  - Assets/Scenes
+  - Assets
   m_LastFoldersGridSize: 95
-  m_LastProjectPath: D:\Tangram\Tangram-Game-Project
+  m_LastProjectPath: C:\Users\zhang\Unity project\Tangram-Game-Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: d82b0000
-    m_LastClickedID: 11224
-    m_ExpandedIDs: 00000000e62a0000002b0000282b0000842b0000e42b0000182c0000602c000000ca9a3b
+    m_SelectedIDs: f22a0000
+    m_LastClickedID: 10994
+    m_ExpandedIDs: 00000000f22a00000c2b0000342b0000922b0000f22b0000262c00006e2c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -636,7 +636,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000e62a0000002b0000282b0000842b0000e42b0000182c0000602c0000
+    m_ExpandedIDs: 00000000f22a00000c2b0000342b0000922b0000f22b0000262c00006e2c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000088310000a8390000be390000b2390000f8390000c8390000b6930000ee700000b8680000226e0000e0700000c8700000826100003c5c0000305d00005e5c0000be2c000074600000d631000088520000ba4c0000e43100003892020094c0d8ffc4cf0200ec3000000c390000ecd300003c45000002310000a230000076b6f9ffb448000060480000447600004c690000b4ef0000d4ef00008031000088330000c834000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -712,10 +712,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1535
-    y: 81
+    x: 1529
+    y: 22
     width: 375
-    height: 911
+    height: 907
   m_PersistentViewDataDictionary: {fileID: 0}
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
@@ -747,8 +747,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 8
-    y: 81
+    x: 2153
+    y: 439
     width: 557
     height: 636
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -757,7 +757,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: dcf4ffff52f6ffff58f6ffffbcf7ffff
+      m_ExpandedIDs: c0f7ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -881,8 +881,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 567
-    y: 81
+    x: 2712
+    y: 439
     width: 964
     height: 636
   m_PersistentViewDataDictionary: {fileID: 0}
