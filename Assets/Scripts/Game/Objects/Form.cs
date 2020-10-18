@@ -60,23 +60,6 @@ public class Form : ScriptableObject
     //=============================================================== Rotate Functions
     public void RotateRight()
     {
-        switch (Rotated)
-        {
-            case 0:
-                Y += 64;
-                break;
-            case 1:
-                X += 64;
-                break;
-               
-            case 2:
-                X -= 64;
-                Y -= 64;
-                break;
-            case 3:
-                break;
-        }
-
         List<SimpleTriforce> Cache = new List<SimpleTriforce>();
         int oldWidth  = Width;
         int oldHeight = Height;
