@@ -21,7 +21,7 @@ public class MISC : MonoBehaviour
 
     //Functions ========================================================
 
-    public Color GetColorCode(int Color)
+    public static Color GetColorCode(int Color)
     {
         Color ReturnColor = new Color(255, 0, 0);
 
@@ -29,6 +29,12 @@ public class MISC : MonoBehaviour
         {
             ReturnColor = ColorPalette[Color];
         }
+
+        if (Color == 100)
+        {
+            ReturnColor = new Color(40, 40, 40);
+        }
+
         return ReturnColor;
     }
 

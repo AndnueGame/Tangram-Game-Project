@@ -82,7 +82,6 @@ public class FormEditor : Editor
 
         if (oldW != sf.Width || oldH != sf.Height) change = true;
         if (change) sf.Resize(sf.Width, sf.Height);
-        Debug.Log(change);
 
         for (int y = 0; y < sf.Height; y++) {
             EditorGUILayout.BeginHorizontal();

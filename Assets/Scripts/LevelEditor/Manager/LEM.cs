@@ -156,8 +156,9 @@ public class LEM : MonoBehaviour
                 return c;
             }
         }
-        return c;
+
         Debug.LogWarning("[LEM] Could not find form!");
+        return c;
     }
 
     //:::::::::::::::::

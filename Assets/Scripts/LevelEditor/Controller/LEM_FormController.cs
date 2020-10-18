@@ -190,7 +190,7 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
                     if (typeCache != SimpleTriforce.TriforceType.EMPTY)
                     {
                         Image imgCache = cache.GetComponent<Image>();
-                        imgCache.color = MISC.ColorPalette[FormBuild.Color];
+                        //imgCache.color = MISC.ColorPalette[FormBuild.Color]; //_______________________________________ REMOVED FOR TEST
 
                         switch (typeCache)
                         {
@@ -252,7 +252,7 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
             Image iTile = Cache.transform.GetChild(x).GetComponent<Image>();
             if (iTile)
             {
-                iTile.color = MISC.ColorPalette[Color];
+                iTile.color = MISC.GetColorCode(Color);
             }
         } 
     }

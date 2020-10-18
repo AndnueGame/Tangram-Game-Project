@@ -29,6 +29,9 @@ public class Form : ScriptableObject
     //Rotated State
     public int Rotated = 0;
 
+    //Sprites;
+    private static Sprite Empty, TriangleDL, TriangleDR, TriangleTL, TriangleTR, Square;
+
     //=============================================================== Resize
     public void Resize(int w, int h)
     {
@@ -57,6 +60,23 @@ public class Form : ScriptableObject
     //=============================================================== Rotate Functions
     public void RotateRight()
     {
+        switch (Rotated)
+        {
+            case 0:
+                Y += 64;
+                break;
+            case 1:
+                X += 64;
+                break;
+               
+            case 2:
+                X -= 64;
+                Y -= 64;
+                break;
+            case 3:
+                break;
+        }
+
         List<SimpleTriforce> Cache = new List<SimpleTriforce>();
         int oldWidth  = Width;
         int oldHeight = Height;
@@ -116,6 +136,9 @@ public class Form : ScriptableObject
         cache.X         = this.X;
         cache.Y         = this.Y;
     }
+
+    //=============================================================== Rotate Functions
+
 }
 
 //=======================================================================
