@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Dia6.1
   m_EditorClassIdentifier: 
   Triforces:
-  - Type: 1
+  - Type: 2
   - Type: 5
-  - Type: 4
+  - Type: 3
   Name: 'Dia 6.1 '
   Width: 3
   Height: 1
