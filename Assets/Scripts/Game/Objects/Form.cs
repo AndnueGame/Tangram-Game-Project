@@ -57,6 +57,16 @@ public class Form : ScriptableObject
         return ret;
     }
 
+    public void Set(int x, int y, SimpleTriforce Tri)
+    {
+
+        if (x >= 0 && y >= 0 && x < Width && y < Height)
+        {
+            Triforces[y * Width + x] = Tri;
+        }
+        return;
+    }
+
     //=============================================================== Rotate Functions
     public void RotateRight()
     {

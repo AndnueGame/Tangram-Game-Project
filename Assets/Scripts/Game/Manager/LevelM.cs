@@ -32,7 +32,9 @@ public class LevelM : MonoBehaviour
         TriangleTR = Resources.Load<Texture2D>("FormEditor/Shape_TriangleTR");
         Square     = Resources.Load<Texture2D>("FormEditor/Shape_Square");
         Debug.Log("1");
-        GenerateLevelSprite();
+        Sprite level = GenerateLevelSprite();
+        test.sprite = level;
+
     }
 
     static bool LoadLevel(int Number, bool AutoGenerate = true)
@@ -199,14 +201,14 @@ public class LevelM : MonoBehaviour
                 y++;
             }
         }
-        Color c = Random.ColorHSV(); //For Debugging Stuff
+
         for (int pixelY = 0; pixelY <= Cache.height - 1; pixelY++)
         {
             for (int pixelX = 0; pixelX <= Cache.width - 1; pixelX++)
             {
                 if (Cache.GetPixel(pixelX, pixelY).a > 0.05f)
                 {
-                    Cache.SetPixel(pixelX, pixelY,c);
+                    Cache.SetPixel(pixelX, pixelY,Color.white);
                 }
             }
         }
@@ -219,88 +221,52 @@ public class LevelM : MonoBehaviour
     }
 
     public Sprite GenerateLevelSprite()
-    {  
-        Texture2D levelTexture = new Texture2D(9 * 64, 12 * 64);
+    {
+        if (CurrentLevel == null) return null;
 
-        Color fillColor = Color.clear;
-        Color[] fillPixels = new Color[levelTexture.width * levelTexture.height];
-
-        for (int i = 0; i < fillPixels.Length; i++)
-        {
-            fillPixels[i] = fillColor;
-        }
-
-        levelTexture.SetPixels(fillPixels);
+        Form LevelForm = ScriptableObject.CreateInstance<Form>();
+        LevelForm.Width = 9;
+        LevelForm.Height = 12;
+        LevelForm.Resize(9, 12);
 
         List<Form> forms = MISC.FindAssetsByType<Form>();
 
-        //Draw each Form
-        foreach (LevelData l in CurrentLevel.Data)
+        foreach (LevelData ld in CurrentLevel.Data)
         {
             for (int x = 0; x < forms.Count; x++)
             {
-                if (forms[x].Name == l.FormName)
+                if (forms[x].Name == ld.FormName)
                 {
-                    Form cache = ScriptableObject.CreateInstance<Form>();
+                    Form Cache = ScriptableObject.CreateInstance<Form>();
+                    forms[x].CloneTo(Cache);
 
-                    forms[x].CloneTo(cache);
-                    cache.X = l.x;
-                    cache.Y = l.y;
-
-
-                    while(cache.Rotated != l.RotationState)
+                    while (Cache.Rotated != ld.RotationState)
                     {
-                        cache.RotateRight();
+                        Cache.RotateRight();
                     }
 
-                    //As we draw from bottom to top: flip 180°
+                    for (int fy = 0; fy < Cache.Height; fy++)
+                    {
+                        for (int fx = 0; fx < Cache.Width; fx++)
+                        {
+                            SimpleTriforce CacheTri = new SimpleTriforce();
+                            CacheTri = Cache.Get(fx, fy);
+                            int realX = ld.x / 64 + fx;
+                            int realY = ld.y / 64 * -1 + fy;
+                            Debug.Log(CacheTri.Type);
 
-                    Sprite FormSprite = GenerateFormSprite(cache);
-                    Color[] Pixels = FormSprite.texture.GetPixels();
-
-                    for(int pixelY=0; pixelY <= FormSprite.texture.height-1; pixelY++) { 
-                        for(int pixelX=0; pixelX <= FormSprite.texture.width-1; pixelX++) {
-                            if (Pixels[pixelX + pixelY*FormSprite.texture.width].a > 0.05f)
+                            if (CacheTri.Type != SimpleTriforce.TriforceType.EMPTY)
                             {
-                                levelTexture.SetPixel(l.x + pixelX, 640+l.y + pixelY, Pixels[pixelX + pixelY * FormSprite.texture.width]);
+                                if (LevelForm.Get(realX, realY).Type != SimpleTriforce.TriforceType.EMPTY) CacheTri.Type = SimpleTriforce.TriforceType.FILLED;
+                                LevelForm.Set(realX, realY, CacheTri);
                             }
                         }
                     }
-                    //levelTexture.SetPixels(cache.X, 600-cache.Y*-1, FormSprite.texture.width, FormSprite.texture.height, Pixels);
                 }
             }
         }
-
-        
-        //Make it more raw and remove smooth Lines
-        for (int pixelY = 0; pixelY <= levelTexture.height - 1; pixelY++)
-        {
-            for (int pixelX = 0; pixelX <= levelTexture.width - 1; pixelX++)
-            {
-                if (levelTexture.GetPixel(pixelX, pixelY).a > 0.05f)
-                {
-                    levelTexture.SetPixel(pixelX, pixelY, levelTexture.GetPixel(pixelX, pixelY)); //Color.white);
-                }
-            }
-        }
-
-        levelTexture.Apply();
-
-        //Flip Vertically
-        Color[] c     = levelTexture.GetPixels();
-        Color[] cflip = new Color[c.Length];
-        for (int i = 0; i < levelTexture.height; i++)
-        {
-            System.Array.Copy(c, i * levelTexture.width, cflip, (levelTexture.height - i - 1) * levelTexture.width, levelTexture.width);
-        }
-
-        //levelTexture.SetPixels(cflip);
-        //levelTexture.Apply();
-
-        Sprite retSprite = Sprite.Create(levelTexture, new Rect(0, 0, levelTexture.width, levelTexture.height), Vector2.zero);
-        test.sprite = retSprite;
-        retSprite.texture.filterMode = FilterMode.Point;
-
+        Debug.Log(LevelForm.Get(0,0).Type);
+        Sprite retSprite = GenerateFormSprite(LevelForm);
         return retSprite;
     }     
 }
