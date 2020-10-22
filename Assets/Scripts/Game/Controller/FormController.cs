@@ -150,9 +150,9 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                 }
             }
         }
-
-        LevelM.RegenerateCurrentLevel();
         isDrag = false;
+        LevelM.RegenerateCurrentLevel();
+        
 
     }
 
