@@ -156,8 +156,16 @@ public class TabSelector : MonoBehaviour
             }
             else
                 GameObject.Find("progress" + i).GetComponent<Text>().text = (progress-(25 * (i-1))) + "/25";
-            if((progress - (25 * (i - 1))<1))
+            if ((progress - (25 * (i - 1)) < 1))
+            {
                 GameObject.Find("progress" + i).GetComponent<Text>().text = "0/25";
+                if(GameObject.Find("world " + i).GetComponent<Button>().interactable)
+                GameObject.Find("world " + i).GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                GameObject.Find("world " + i).GetComponent<Button>().interactable = true;
+            }
 
         }
     }
