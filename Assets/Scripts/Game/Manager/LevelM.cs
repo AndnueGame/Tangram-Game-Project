@@ -34,11 +34,12 @@ public class LevelM : MonoBehaviour
     bool Init = false;
     bool wasInBottom = true;
 
+    public static int countForms;
+    public static int correctForms;
 
     private void Start()
     {
         instance = this;
-        LoadLevel(1);
 
         //Loading Textures for Form
         Empty = Resources.Load<Texture2D>("FormEditor/Shape_Empty");
@@ -90,7 +91,7 @@ public class LevelM : MonoBehaviour
 
     }
 
-    static bool LoadLevel(int Number, bool AutoGenerate = true)
+    public static bool LoadLevel(int Number, bool AutoGenerate = true)
     {
         if (Number < 0 || Number >= instance.LevelList.Count) return false;
 
@@ -437,8 +438,8 @@ public class LevelM : MonoBehaviour
         if (Init == false) return;
 
 
-        int countForms = 0;
-        int correctForms = 0;
+        countForms = 0;
+        correctForms = 0;
 
         for (int y = 0; y < 12; y++)
         {

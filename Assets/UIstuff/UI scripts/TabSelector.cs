@@ -49,35 +49,15 @@ public class TabSelector : MonoBehaviour
     int m = 1;
     int selectedWorld;
 
+    int currentLevel;
 
     public int progress = 0;
 
     private void Start()
     {
+  
 
-        // LoadLevels();
         levels = new GameObject[n];
-        //Debug.Log(GameObject.Find("level " + (n + 1)).name);
-      /*  for (int i = 0; i <n; i++)
-        {
-            GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = (i + 1).ToString();
-            if(levelss[i]==0)
-           // if (lockedd)
-            {
-                GameObject.Find("level " + (i + 1)).GetComponent<Image>().sprite = l;
-                GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = "";
-                GameObject.Find("level " + (i + 1)).GetComponentInChildren<Button>().interactable = false;
-            }
-            else
-            {
-
-                GameObject.Find("level " + (i + 1)).GetComponent<Image>().sprite = o;
-                GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = (i + 1).ToString();
-                GameObject.Find("level " + (i + 1)).GetComponentInChildren<Button>().interactable = true;
-            }
-
-        }*/
-
 
         level = GameObject.Find("Level");
         level.SetActive(false);
@@ -99,15 +79,18 @@ public class TabSelector : MonoBehaviour
         pauseScreen.SetActive(false);
 
         mainMenu = GameObject.Find("MainMenu");
+        mainMenu.SetActive(false);
 
         goldLevel = GameObject.Find("GoldLevel");
         goldLevel.SetActive(false);
 
-        winScreen = GameObject.Find("WinScreen");
-        winScreen.SetActive(false);
+
 
         goldLevelDone = GameObject.Find("GoldLevelDone");
         goldLevelDone.SetActive(false);
+
+        winScreen = GameObject.Find("WinScreen");
+        winScreen.SetActive(false);
 
         giftDone = GameObject.Find("GiftDone");
         giftDone.SetActive(false);
@@ -122,10 +105,17 @@ public class TabSelector : MonoBehaviour
     private void Update()
     {
         if (winCondition)
+        {
             if (goldLevel.active)
                 goldLevelDone.SetActive(true);
             else
                 winScreen.SetActive(true);
+        }
+        else
+        {
+            goldLevelDone.SetActive(false);
+            winScreen.SetActive(false);
+        }
         if (giftCondition)
             giftDone.SetActive(true);
         else giftDone.SetActive(false);
@@ -136,11 +126,20 @@ public class TabSelector : MonoBehaviour
             goldDone.SetActive(true);
         else goldDone.SetActive(false);
 
-       /* if(music)
-            while(GameObject.Find("music"))
-                G
+        
 
-                if(sound)*/
+        if(LevelM.correctForms == LevelM.countForms)
+        {
+            if (currentLevel > progress)
+                progress++;
+            winScreen.SetActive(true);
+        }
+        
+        /* if(music)
+             while(GameObject.Find("music"))
+                 G
+
+                 if(sound)*/
     }
 
     public void OpenTab(string nameOfButton)
@@ -210,14 +209,15 @@ public class TabSelector : MonoBehaviour
         {
             if (nameOfButton == "level 2")
             {
-                SceneManager.LoadScene("GoldSceneName");
+            //    SceneManager.LoadScene("GoldSceneName");
                 goldLevel.SetActive(true);
                 levelSelection.SetActive(false);
             }
             else
             {
-                SceneManager.LoadScene("LevelSceneName");
+             //   SceneManager.LoadScene("LevelSceneName");
                 level.SetActive(true);
+                LevelM.LoadLevel(10);
                 levelSelection.SetActive(false);
             }
         }
