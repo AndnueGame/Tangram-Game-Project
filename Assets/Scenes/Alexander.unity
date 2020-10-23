@@ -619,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &49757827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1140,6 +1140,7 @@ RectTransform:
   - {fileID: 1709401556}
   - {fileID: 49757827}
   - {fileID: 1842053380}
+  - {fileID: 1755336330}
   m_Father: {fileID: 1235111652}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8439,7 +8440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &727761688
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8871,7 +8872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &755372636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9401,10 +9402,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 970421478}
     m_Modifications:
+    - target: {fileID: 7125048295410228993, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: progress4
+      objectReference: {fileID: 0}
     - target: {fileID: 7125048295531865538, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
       propertyPath: m_Text
       value: 5 to 6 blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295531865540, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: discription
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295883431584, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7125048295883431585, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
@@ -11804,12 +11820,12 @@ GameObject:
   - component: {fileID: 1066503206}
   - component: {fileID: 1066503205}
   m_Layer: 5
-  m_Name: Level 1
+  m_Name: LevelName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1066503204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11884,7 +11900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1069364876
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11896,7 +11912,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1755336330}
   - {fileID: 1889411745}
   m_Father: {fileID: 1489741640}
   m_RootOrder: 0
@@ -13487,7 +13502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1182675000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14044,7 +14059,7 @@ MonoBehaviour:
   levelss: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   sound: 1
   music: 1
-  progress: 1
+  progress: 26
 --- !u!1001 &1246272125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14229,7 +14244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1308066672
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15728,10 +15743,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 970421478}
     m_Modifications:
+    - target: {fileID: 7125048295410228993, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: progress3
+      objectReference: {fileID: 0}
     - target: {fileID: 7125048295531865538, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
       propertyPath: m_Text
       value: 5 to 6 blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295531865540, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: discription
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295883431584, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7125048295883431585, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
@@ -16816,7 +16846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1486562936
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16889,7 +16919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1489741637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19003,7 +19033,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1709401556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19929,8 +19959,8 @@ RectTransform:
   - {fileID: 1139257556}
   - {fileID: 1554041320}
   - {fileID: 1900339838}
-  m_Father: {fileID: 1069364876}
-  m_RootOrder: 0
+  m_Father: {fileID: 76407341}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20325,10 +20355,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 970421478}
     m_Modifications:
+    - target: {fileID: 7125048295410228993, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: progress5
+      objectReference: {fileID: 0}
     - target: {fileID: 7125048295531865538, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
       propertyPath: m_Text
       value: 6 to 7 blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295531865540, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: discription
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295883431584, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7125048295883431585, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
@@ -21480,7 +21525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1842053380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21913,7 +21958,7 @@ RectTransform:
   - {fileID: 266561405}
   - {fileID: 995731913}
   m_Father: {fileID: 1069364876}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -22710,10 +22755,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 970421478}
     m_Modifications:
+    - target: {fileID: 7125048295410228993, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: progress2
+      objectReference: {fileID: 0}
     - target: {fileID: 7125048295531865538, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
       propertyPath: m_Text
       value: 4 to 5 blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295531865540, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: discription
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295883431584, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7125048295883431585, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
@@ -23973,7 +24033,7 @@ PrefabInstance:
     - target: {fileID: 6834114469922739901, guid: 4046eac249a8af54cb5a67dd10a37ffe,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8902719283918097243, guid: 4046eac249a8af54cb5a67dd10a37ffe,
         type: 3}
@@ -25874,6 +25934,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 970421478}
     m_Modifications:
+    - target: {fileID: 7125048295410228993, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: progress1
+      objectReference: {fileID: 0}
     - target: {fileID: 7125048295410229055, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
       propertyPath: m_Text
@@ -25883,6 +25948,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: 4 to 5 blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295531865540, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Name
+      value: discription
       objectReference: {fileID: 0}
     - target: {fileID: 7125048295883431584, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}
@@ -25903,6 +25973,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125048295883431584, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7125048295883431585, guid: a57fb6a488ed78b4bad03e40a4cfd33d,
         type: 3}

@@ -30,6 +30,7 @@ public class TabSelector : MonoBehaviour
     GameObject winScreen;
     GameObject settings;
 
+
     GameObject[] levels;
 
 
@@ -54,9 +55,8 @@ public class TabSelector : MonoBehaviour
     public int progress = 0;
 
     private void Start()
-    {
-  
-
+    {       
+        PlayerPrefs.GetInt("progress",progress);
         levels = new GameObject[n];
 
         level = GameObject.Find("Level");
@@ -79,7 +79,7 @@ public class TabSelector : MonoBehaviour
         pauseScreen.SetActive(false);
 
         mainMenu = GameObject.Find("MainMenu");
-        mainMenu.SetActive(false);
+        //mainMenu.SetActive(false);
 
         goldLevel = GameObject.Find("GoldLevel");
         goldLevel.SetActive(false);
@@ -104,18 +104,18 @@ public class TabSelector : MonoBehaviour
 
     private void Update()
     {
-        if (winCondition)
+       /* if (winCondition)
         {
             if (goldLevel.active)
                 goldLevelDone.SetActive(true);
             else
                 winScreen.SetActive(true);
-        }
+        }*
         else
         {
             goldLevelDone.SetActive(false);
             winScreen.SetActive(false);
-        }
+        }*/
         if (giftCondition)
             giftDone.SetActive(true);
         else giftDone.SetActive(false);
@@ -130,9 +130,13 @@ public class TabSelector : MonoBehaviour
 
         if(LevelM.correctForms == LevelM.countForms)
         {
-            if (currentLevel > progress)
+            if (currentLevel > progress && winCondition)
+            {
                 progress++;
-            winScreen.SetActive(true);
+                winScreen.SetActive(true);
+                PlayerPrefs.SetInt("progress", progress);
+                //  PlayerPrefs("save", progress);
+            }
         }
         
         /* if(music)
@@ -142,12 +146,36 @@ public class TabSelector : MonoBehaviour
                  if(sound)*/
     }
 
+    void progressCheck()
+    {
+        for(int i=1;i<6;i++)
+        {
+            if((progress/25)>=i)
+                {
+                GameObject.Find("progress" + i).GetComponent<Text>().text ="25/25";
+            }
+            else
+                GameObject.Find("progress" + i).GetComponent<Text>().text = (progress-(25 * (i-1))) + "/25";
+            if ((progress - (25 * (i - 1)) < 1))
+            {
+                GameObject.Find("progress" + i).GetComponent<Text>().text = "0/25";
+                if(GameObject.Find("world " + i).GetComponent<Button>().interactable)
+                GameObject.Find("world " + i).GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                GameObject.Find("world " + i).GetComponent<Button>().interactable = true;
+            }
+
+        }
+    }
     public void OpenTab(string nameOfButton)
     {
         if (nameOfButton == "play")
         {
             worldSelection.SetActive(true);
             mainMenu.SetActive(false);
+            progressCheck();
         }
 
         if (nameOfButton.StartsWith("world"))
@@ -204,6 +232,7 @@ public class TabSelector : MonoBehaviour
                 }
 
             }
+            
         }
         if (nameOfButton.StartsWith("level"))
         {
@@ -217,7 +246,7 @@ public class TabSelector : MonoBehaviour
             {
              //   SceneManager.LoadScene("LevelSceneName");
                 level.SetActive(true);
-                LevelM.LoadLevel(10);
+                LevelM.LoadLevel(9);
                 levelSelection.SetActive(false);
             }
         }
@@ -255,6 +284,7 @@ public class TabSelector : MonoBehaviour
         {
             levelSelection.SetActive(false);
             worldSelection.SetActive(true);
+            progressCheck();
         }
 
         if (nameOfButton == "claimGoldFigure")
