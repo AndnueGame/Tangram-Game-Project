@@ -33,6 +33,7 @@ public class TabSelector : MonoBehaviour
 
     GameObject[] levels;
 
+    List<GameObject> ff;
 
     public GameObject levela;
     public GameObject locked;
@@ -48,17 +49,18 @@ public class TabSelector : MonoBehaviour
 
     int n=125;
     int m = 1;
-    int selectedWorld;
+    int selectedWorld=0;
 
-    int currentLevel;
+    int currentLevel=0;
 
     public int progress = 0;
 
     private void Start()
-    {       
+    {
+        ff = new List<GameObject>();
+
         PlayerPrefs.GetInt("progress",progress);
         levels = new GameObject[n];
-
         level = GameObject.Find("Level");
         level.SetActive(false);
 
@@ -77,6 +79,7 @@ public class TabSelector : MonoBehaviour
 
         pauseScreen = GameObject.Find("PauseScreen");
         pauseScreen.SetActive(false);
+
 
         mainMenu = GameObject.Find("MainMenu");
         //mainMenu.SetActive(false);
@@ -236,20 +239,22 @@ public class TabSelector : MonoBehaviour
         }
         if (nameOfButton.StartsWith("level"))
         {
-            if (nameOfButton == "level 2")
+            string[] name = nameOfButton.Split(' ');
+
+            level.SetActive(true);
+            GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + GameObject.Find(nameOfButton).GetComponentInChildren<Text>().text;
+            foreach (Transform child in GameObject.Find("ScaleThem").transform)
             {
-            //    SceneManager.LoadScene("GoldSceneName");
-                goldLevel.SetActive(true);
-                levelSelection.SetActive(false);
+                Destroy(child.gameObject);
             }
-            else
+            foreach (Transform child in GameObject.Find("SelectedForm").transform)
             {
-             //   SceneManager.LoadScene("LevelSceneName");
-                level.SetActive(true);
-                LevelM.LoadLevel(9);
-                levelSelection.SetActive(false);
+                Destroy(child.gameObject);
             }
+            LevelM.LoadLevel(int.Parse("0" + GameObject.Find(nameOfButton).GetComponentInChildren<Text>().text));          
+            levelSelection.SetActive(false);
         }
+
         if (nameOfButton == "settings")
             settings.SetActive(true);
         if (nameOfButton == "closeSettings")
@@ -269,6 +274,9 @@ public class TabSelector : MonoBehaviour
             level.SetActive(false);
             mainMenu.SetActive(true);
         }
+        if (nameOfButton == "goBack")
+            LevelM.RegenerateCurrentLevel();
+
 
         if (nameOfButton == "backCollections")
         {
@@ -324,11 +332,19 @@ public class TabSelector : MonoBehaviour
         {
             tmp = GameObject.Find(nameOfButton);
             music = !music;
+            if (music)
+                GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 1;
+            else
+                GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 0;
         }
         if (nameOfButton == "sound")
         {
             tmp = GameObject.Find(nameOfButton);
             sound = !sound;
+            if (sound)
+                GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 1;
+            else
+                GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 0;
         }
 
     }
@@ -339,17 +355,11 @@ public class TabSelector : MonoBehaviour
         Debug.Log("sad");
         int n = GameObject.Find("Levels").transform.childCount;
         GameObject[] levels = new GameObject[n];
-        for (int i=0;i<n;i++)
+        for (int i = 0; i < n; i++)
         {
-          //  if ( )
-                levels[i] = GameObject.Find("level " + n);// = levela;
-                levels[i] = levela;
-
+            levels[i] = GameObject.Find("level " + n);
+            levels[i] = levela;
             levels[i].GetComponentInChildren<Text>().text = n.ToString();
         }
-
-        /*foreach (Transform child in GameObject.Find("Levels").GetComponentInChildren())
-            print("Foreach loop: " + child);
-        GameObject.Find("Levels").GetComponentInChildren.*/
     }
 }

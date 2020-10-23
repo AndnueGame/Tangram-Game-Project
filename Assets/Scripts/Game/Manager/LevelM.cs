@@ -32,7 +32,7 @@ public class LevelM : MonoBehaviour
 
     public float LevelScale;
     bool Init = false;
-    bool wasInBottom = true;
+   // bool wasInBottom = true;
 
     public static int countForms;
     public static int correctForms;
@@ -86,11 +86,14 @@ public class LevelM : MonoBehaviour
         shadow = LevelShadow2.GetComponent<RectTransform>();
         shadow.anchoredPosition = new Vector2(LevelX, LevelY);
 
-        Debug.Log(LevelWidth);
-        Debug.Log(LevelHeight);
+       // Debug.Log(LevelWidth);
+       // Debug.Log(LevelHeight);
 
     }
-
+    static public void NewL()
+    {
+        instance.Start();
+    }
     public static bool LoadLevel(int Number, bool AutoGenerate = true)
     {
         if (Number < 0 || Number >= instance.LevelList.Count) return false;
@@ -103,7 +106,7 @@ public class LevelM : MonoBehaviour
         {
             for (int x = 0; x < jsonformatted.Split('\n').Length - 1; x++)
             {
-                Debug.Log(x);
+               // Debug.Log(x);
                 string jsontile = jsonformatted.Split('\n')[x];
                 if (jsontile.Trim().Length != 0)
                 {
@@ -458,7 +461,7 @@ public class LevelM : MonoBehaviour
         //Is LevelComplete? You can even percentage correctForms/(12*9) = % Completed
         //But this counts in empty tiles aswell, so you have to remove them
 
-        if (correctForms == countForms) Debug.Log("Complete");
+        //if (correctForms == countForms) Debug.Log("Complete");
     }
 }
 
