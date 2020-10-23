@@ -45,16 +45,20 @@ public class TabSelector : MonoBehaviour
     public bool sound;
     public bool music;
 
-    int n;
+    int n=125;
     int m = 1;
+    int selectedWorld;
+
+
+    public int progress = 0;
+
     private void Start()
     {
 
         // LoadLevels();
-    n= GameObject.Find("Levels").transform.childCount;
         levels = new GameObject[n];
         //Debug.Log(GameObject.Find("level " + (n + 1)).name);
-        for (int i = 0; i <n; i++)
+      /*  for (int i = 0; i <n; i++)
         {
             GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = (i + 1).ToString();
             if(levelss[i]==0)
@@ -72,7 +76,7 @@ public class TabSelector : MonoBehaviour
                 GameObject.Find("level " + (i + 1)).GetComponentInChildren<Button>().interactable = true;
             }
 
-        }
+        }*/
 
 
         level = GameObject.Find("Level");
@@ -152,32 +156,52 @@ public class TabSelector : MonoBehaviour
             levelSelection.SetActive(true);
             worldSelection.SetActive(false);
             if (nameOfButton == "world 1")
-                m = 0;
-            if (nameOfButton == "world 2")
-                m = 25;
-            if (nameOfButton == "world 3")
-                m = 50;
-            if (nameOfButton == "world 4")
-                m = 75;
-            if (nameOfButton == "world 5")
-                m = 100;
-
-            for (int i = 0; i < n; i++)
             {
-                GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = ((i + 1)+m).ToString();
-                if (levelss[i] == 0)
-                // if (lockedd)
+                m = 0;
+                selectedWorld = 1;
+            }
+            if (nameOfButton == "world 2")
+            {
+                m = 25;
+                selectedWorld = 2;
+            }
+            if (nameOfButton == "world 3")
+            {
+                m = 50;
+                selectedWorld = 3;
+            }
+            if (nameOfButton == "world 4")
+            {
+                m = 75;
+                selectedWorld = 4;
+            }
+            if (nameOfButton == "world 5")
+            {
+                m = 100;
+                selectedWorld = 5;
+            }
+
+            for (int j = 0; j < levelss.Length; j++)
+                if (progress > j)
+                    levelss[j] = 1;
+                else
+                    levelss[j] = 0;
+
+            for (int i = 1; i < 26; i++)
+            {
+                GameObject.Find("level " + i).GetComponentInChildren<Text>().text = (i  + m).ToString();
+                if (levelss[i-1] == 1 && i+m-1<progress/*&& ((i - 1)*selectedWorld > progress)*/)
                 {
-                    GameObject.Find("level " + (i + 1)).GetComponent<Image>().sprite = l;
-                    GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = "";
-                    GameObject.Find("level " + (i + 1)).GetComponentInChildren<Button>().interactable = false;
+                    GameObject.Find("level " + i).GetComponent<Image>().sprite = o;
+                    GameObject.Find("level " + i).GetComponentInChildren<Text>().text = (i + m).ToString();
+                    GameObject.Find("level " + i).GetComponentInChildren<Button>().interactable = true;
                 }
                 else
                 {
-
-                    GameObject.Find("level " + (i + 1)).GetComponent<Image>().sprite = o;
-                    GameObject.Find("level " + (i + 1)).GetComponentInChildren<Text>().text = ((i + 1) + m).ToString();
-                    GameObject.Find("level " + (i + 1)).GetComponentInChildren<Button>().interactable = true;
+                    GameObject.Find("level " + i).GetComponent<Image>().sprite = l;
+                    GameObject.Find("level " + i).GetComponentInChildren<Text>().text = "";
+                    GameObject.Find("level " + i).GetComponentInChildren<Button>().interactable = false;
+                   
                 }
 
             }
@@ -197,10 +221,10 @@ public class TabSelector : MonoBehaviour
                 levelSelection.SetActive(false);
             }
         }
-        if (nameOfButton =="settings")
+        if (nameOfButton == "settings")
             settings.SetActive(true);
         if (nameOfButton == "closeSettings")
-            settings.SetActive(false);  
+            settings.SetActive(false);
         if (nameOfButton == "collections")
             collections.SetActive(true);
 
@@ -215,7 +239,7 @@ public class TabSelector : MonoBehaviour
             pauseScreen.SetActive(false);
             level.SetActive(false);
             mainMenu.SetActive(true);
-        }       
+        }
 
         if (nameOfButton == "backCollections")
         {
@@ -269,14 +293,14 @@ public class TabSelector : MonoBehaviour
         if (nameOfButton == "music")
         {
             tmp = GameObject.Find(nameOfButton);
-            music = !music;     
+            music = !music;
         }
         if (nameOfButton == "sound")
         {
             tmp = GameObject.Find(nameOfButton);
             sound = !sound;
         }
-      
+
     }
 
 
