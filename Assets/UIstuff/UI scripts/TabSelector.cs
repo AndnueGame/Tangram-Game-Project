@@ -6,15 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class TabSelector : MonoBehaviour
 {
+    //Sprites for turn music and sounds on/off 
     public Sprite on;
     public Sprite off;
+
+    //Sprites for set levels to opem/locked 
+    public Sprite l;
+    public Sprite o;
+
     GameObject tmp;
 
     public bool winCondition = false;
     public bool giftCondition = false;
     public bool coinsCondition = false;
     public bool goldCondition = false;
-
 
     //Progress variables       progress, gift, golden piece, collections
     public int progress = 0;
@@ -25,10 +30,6 @@ public class TabSelector : MonoBehaviour
     //For muliply difficulty
     float giftScore;
     float goldenPieceScore;
-
-
-
-
 
     /////////////////////////////////////////////////////////////////////////////
 
@@ -47,16 +48,12 @@ public class TabSelector : MonoBehaviour
     GameObject winScreen;
     GameObject settings;
 
-
     GameObject[] levels;
 
     List<GameObject> ff;
 
     public GameObject levela;
     public GameObject locked;
-
-    public Sprite l;
-    public Sprite o;
 
     public bool lockedd = false;
     public int[] levelss;
@@ -67,22 +64,19 @@ public class TabSelector : MonoBehaviour
     int n = 125;
     int m = 1;
     int selectedWorld = 0;
-
     int currentLevel = 0;
-
-
 
     private void Start()
     {
         ff = new List<GameObject>();
 
         PlayerPrefs.GetInt("progress", progress);
-     /*   PlayerPrefs.GetInt("progress", progress);
-        PlayerPrefs.GetInt("progress", progress);
-        PlayerPrefs.GetInt("progress", progress);
-        PlayerPrefs.GetInt("progress", progress);
-        PlayerPrefs.GetInt("progress", progress);
-        PlayerPrefs.GetInt("progress", progress);*/
+        /*   PlayerPrefs.GetInt("progress", progress);
+           PlayerPrefs.GetInt("progress", progress);
+           PlayerPrefs.GetInt("progress", progress);
+           PlayerPrefs.GetInt("progress", progress);
+           PlayerPrefs.GetInt("progress", progress);
+           PlayerPrefs.GetInt("progress", progress);*/
 
         levels = new GameObject[n];
         level = GameObject.Find("Level");
@@ -162,19 +156,6 @@ public class TabSelector : MonoBehaviour
             }
         }
     }
-    void progressCheck()
-    {
-
-        if (giftProgress >= 100)
-        {
-
-        }
-        if (goldenPieceProgress >= 100)
-        {
-
-        }
-
-    }
 
     public void OpenTab(string nameOfButton)
     {
@@ -207,7 +188,7 @@ public class TabSelector : MonoBehaviour
             pauseScreen.SetActive(true);
             musicSoundStuff(nameOfButton, 0);
 
-           
+
         }
 
         if (nameOfButton == "closePause")
@@ -277,8 +258,22 @@ public class TabSelector : MonoBehaviour
         }
 
         if (nameOfButton == "music" || nameOfButton == "sound")
-            musicSoundStuff(nameOfButton,1);
+            musicSoundStuff(nameOfButton, 1);
 
+
+    }
+
+    void progressCheck()
+    {
+
+        if (giftProgress >= 100)
+        {
+
+        }
+        if (goldenPieceProgress >= 100)
+        {
+
+        }
 
     }
 
@@ -438,7 +433,6 @@ public class TabSelector : MonoBehaviour
 
         }
     }
-
 
     //After any move we need to save game progress!!!!
     void SaveGame()
