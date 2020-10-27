@@ -52,6 +52,8 @@ public class TabSelector : MonoBehaviour
 
     List<GameObject> ff;
 
+
+    List<ParticleSystem> ps;
     public GameObject levela;
     public GameObject locked;
 
@@ -144,8 +146,12 @@ public class TabSelector : MonoBehaviour
         else goldDone.SetActive(false);
         */
 
-        if (LevelM.correctForms == LevelM.countForms)
+        if (LevelM.correctForms == LevelM.countForms&& winCondition)
         {
+            for(int i=0;i<7;i++)
+            {
+                GameObject.Find("Particle System "+(i+1).ToString()).GetComponent<ParticleSystem>().Play();
+            }
             if (currentLevel > progress && winCondition)
             {
                 progress++;
@@ -154,6 +160,7 @@ public class TabSelector : MonoBehaviour
                 //gift and other stuff will be progressing
                 SaveGame();
             }
+            winCondition = false;
         }
     }
 
