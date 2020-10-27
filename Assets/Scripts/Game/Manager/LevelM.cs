@@ -22,7 +22,7 @@ public class LevelM : MonoBehaviour
     public static Sprite LevelSprite;
 
     //For Calculating Level Size
-    private int minx, miny, maxx, maxy;
+    private static int minx, miny, maxx, maxy;
     public float LevelX, LevelY;
     public static int LevelWUneven, LevelHUneven;
 
@@ -31,11 +31,13 @@ public class LevelM : MonoBehaviour
     public static Form LevelTilesCurrent;  //What it is now
 
     public float LevelScale;
-    bool Init = false;
+    public static bool Init = false;
    // bool wasInBottom = true;
 
     public static int countForms;
     public static int correctForms;
+    public static Image levelShadow1_1;
+        public static Image levelShadow1_2;
 
     private void Start()
     {
@@ -51,7 +53,7 @@ public class LevelM : MonoBehaviour
 
         LevelTilesShouldBe = ScriptableObject.CreateInstance<Form>();
         LevelTilesShouldBe.Resize(9, 12);
-
+      //  LoadLevel(1);
         LevelTilesCurrent = ScriptableObject.CreateInstance<Form>();
         LevelTilesCurrent.Resize(9, 12);
 
@@ -60,9 +62,11 @@ public class LevelM : MonoBehaviour
         LevelShadow2.sprite = LevelSprite;
         SetLevelSize(); //To Center the Level, does not work yet
 
+        levelShadow1_1 = LevelShadow1;
+        levelShadow1_2 = LevelShadow2;
 
 
-        Init = true;
+       Init = true;
     }
 
     void SetLevelSize()
@@ -117,6 +121,10 @@ public class LevelM : MonoBehaviour
             if (AutoGenerate == true) return Generate();
             return true;
         }
+        LevelSprite = GenerateLevelSprite();
+        levelShadow1_1.sprite = LevelSprite;
+        levelShadow1_2.sprite = LevelSprite;
+        //SetLevelSize(); //To Center the Level, does not work yet
 
         return false;
     }
@@ -186,6 +194,7 @@ public class LevelM : MonoBehaviour
 
     public IEnumerator waitForFormLoad(FormController lem, LevelData LED)
     {
+
         while (lem.Init == false)
         {
             yield return new WaitForSeconds(0.1f);
@@ -282,7 +291,7 @@ public class LevelM : MonoBehaviour
         return retSprite;
     }
 
-    public Sprite GenerateLevelSprite()
+    public static Sprite GenerateLevelSprite()
     {
         if (CurrentLevel == null) return null;
 

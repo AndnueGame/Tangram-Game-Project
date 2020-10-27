@@ -158,7 +158,7 @@ public class TabSelector : MonoBehaviour
                 progressCheck();
                 winScreen.SetActive(true);
                 //gift and other stuff will be progressing
-                SaveGame();
+                //SaveGame();
             }
             winCondition = false;
         }
@@ -166,6 +166,18 @@ public class TabSelector : MonoBehaviour
 
     public void OpenTab(string nameOfButton)
     {
+        if (nameOfButton == "SaSave")
+        {
+            Debug.Log("Save");
+            DataM.SetString("progress", progress.ToString());
+        }
+        if (nameOfButton == "LoLoad")
+        {
+            Debug.Log("Loading");
+            progress=int.Parse(DataM.GetString("progress"));
+            
+        }
+
         if (nameOfButton == "play")
         {
             worldSelection.SetActive(true);
@@ -346,7 +358,7 @@ public class TabSelector : MonoBehaviour
     void LoadLevel(string button)
     {
         string[] name = button.Split(' ');
-        level.SetActive(true);
+
         GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + GameObject.Find(button).GetComponentInChildren<Text>().text;
         foreach (Transform child in GameObject.Find("ScaleThem").transform)
         {
@@ -355,6 +367,18 @@ public class TabSelector : MonoBehaviour
         foreach (Transform child in GameObject.Find("SelectedForm").transform)
         {
             Destroy(child.gameObject);
+        }
+        StartCoroutine(waitForFormLoad(button));    
+        level.SetActive(true);
+       
+    }
+
+
+    public IEnumerator waitForFormLoad(string button)
+    {
+        while (LevelM.Init == false)
+        {
+            yield return new WaitForSeconds(0.5f);        
         }
         LevelM.LoadLevel(int.Parse("0" + GameObject.Find(button).GetComponentInChildren<Text>().text));
         levelSelection.SetActive(false);
@@ -442,9 +466,9 @@ public class TabSelector : MonoBehaviour
     }
 
     //After any move we need to save game progress!!!!
-    void SaveGame()
+  /*  void SaveGame()
     {
         PlayerPrefs.SetInt("progress", progress);
 
-    }
+    }*/
 }
