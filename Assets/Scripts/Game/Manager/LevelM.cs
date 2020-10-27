@@ -49,7 +49,6 @@ public class LevelM : MonoBehaviour
         TriangleTR = Resources.Load<Texture2D>("FormEditor/Shape_TriangleTR");
         Square = Resources.Load<Texture2D>("FormEditor/Shape_Square");
 
-
         LevelTilesShouldBe = ScriptableObject.CreateInstance<Form>();
         LevelTilesShouldBe.Resize(9, 12);
 
