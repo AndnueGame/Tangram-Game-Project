@@ -352,3 +352,14 @@ MonoBehaviour:
   imageContainer: {fileID: 8280112892328302686}
   tilePrefab: {fileID: 5436232728245190605, guid: 4f97b32bd125a3142a2d28a688181c61,
     type: 3}
+  FormBuild: {fileID: 0}
+  thisGameObject: {fileID: 0}
+  DataSet:
+    FormName: 
+    Color: 0
+    RotationState: 0
+    x: 0
+    y: 0
+  xpos: 0
+  ypos: 0
+  Init: 0
