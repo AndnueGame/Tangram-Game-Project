@@ -37,7 +37,7 @@ public class LevelM : MonoBehaviour
     public static int countForms;
     public static int correctForms;
     public static Image levelShadow1_1;
-        public static Image levelShadow1_2;
+    public static Image levelShadow1_2;
 
     private void Start()
     {
@@ -93,10 +93,12 @@ public class LevelM : MonoBehaviour
        // Debug.Log(LevelHeight);
 
     }
+
     static public void NewL()
     {
         instance.Start();
     }
+
     public static bool LoadLevel(int Number, bool AutoGenerate = true)
     {
         if (Number < 0 || Number >= instance.LevelList.Count) return false;
@@ -118,13 +120,15 @@ public class LevelM : MonoBehaviour
                 }
             }
 
+            LevelSprite = GenerateLevelSprite();
+            levelShadow1_1.sprite = LevelSprite;
+            levelShadow1_2.sprite = LevelSprite;
+            //SetLevelSize(); //To Center the Level, does not work yet
+
             if (AutoGenerate == true) return Generate();
             return true;
         }
-        LevelSprite = GenerateLevelSprite();
-        levelShadow1_1.sprite = LevelSprite;
-        levelShadow1_2.sprite = LevelSprite;
-        //SetLevelSize(); //To Center the Level, does not work yet
+        
 
         return false;
     }
