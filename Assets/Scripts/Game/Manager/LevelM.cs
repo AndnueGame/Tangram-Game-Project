@@ -360,6 +360,7 @@ public class LevelM : MonoBehaviour
     public static bool CheckNoCollision(FormController ToCheck)
     {
         bool ret = true;
+        return true;
 
         for (int y = 0; y < ToCheck.FormBuild.Height; y++)
         {
