@@ -22,6 +22,9 @@ public class SoundM : MonoBehaviour
 
     public static SoundM instance;
 
+    public static bool SoundEnabled = true;
+    public static bool MusicEnabled = true;
+
     void Start()
     {
         if (GenerateObjects == true)
@@ -47,20 +50,35 @@ public class SoundM : MonoBehaviour
         //Start Music and end Initphase
         if (Effects != null && Music != null) {
 
-            //Play Background Muisc
-            Music.clip = BackgroundMusic;
-            Music.loop = true;
-            Music.Play();
+            if(MusicEnabled == true){
+
+                //Play Background Muisc
+                Music.clip = BackgroundMusic;
+                Music.loop = true;
+                Music.Play();
+            }
 
             Init = true;
+
         }
     }
 
     //As Simple as it is...
-    static void PlaySound(int Number)
+    public static void PlaySound(int Number)
     {
         if (!Init || Number<0 || Number >= instance.SoundList.Count) return;
         Effects.PlayOneShot(instance.SoundList[Number], 1);
+    }
+
+    public static void EnableSound(bool State=true){
+        SoundEnabled = State;
+    }
+
+    public static void EnableMusic(bool State=true){
+        MusicEnabled = State;
+        
+        if (State == true)  Music.Play();
+        if (State == false) Music.Stop();
     }
 
 
