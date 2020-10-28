@@ -22,7 +22,7 @@ public class TabSelector : MonoBehaviour
     public bool goldCondition = false;
 
     //Progress variables       progress, gift, golden piece, collections
-    public int progress = 0;
+    public int progress = 1;
     public int giftProgress = 0;
     public int goldenPieceProgress = 0;
     public int collection = 0;
@@ -47,13 +47,14 @@ public class TabSelector : MonoBehaviour
     GameObject mainMenu;
     GameObject winScreen;
     GameObject settings;
+    GameObject next;
 
     GameObject[] levels;
 
     List<GameObject> ff;
 
 
-    List<ParticleSystem> ps;
+    public List<ParticleSystem> winParticles;
     public GameObject levela;
     public GameObject locked;
 
@@ -68,9 +69,42 @@ public class TabSelector : MonoBehaviour
     int selectedWorld = 0;
     int currentLevel = 0;
 
+    bool alreadyFinished=false;
+
     private void Start()
     {
         ff = new List<GameObject>();
+
+        Debug.Log("Loading");
+        progress = int.Parse(DataM.GetString("progress"));
+
+
+        if (DataM.GetString("music") == "True")
+        {
+            music = true;
+            SoundM.MusicEnabled = true;
+
+        }
+        else
+        {
+            music = false;
+            GameObject.Find("Audio_Music").GetComponent<AudioSource>().Stop();
+            SoundM.MusicEnabled = false;
+        }
+
+        if (DataM.GetString("sound") == "True")
+        {
+            sound = true;
+            SoundM.SoundEnabled = true;
+        }
+        else
+        {
+            sound = false;
+            GameObject.Find("Audio_Effects").GetComponent<AudioSource>().Stop();
+            SoundM.SoundEnabled = false;
+        }
+
+        Debug.Log("music " + music + " / " + "sound " + sound);
 
         PlayerPrefs.GetInt("progress", progress);
         /*   PlayerPrefs.GetInt("progress", progress);
@@ -81,6 +115,10 @@ public class TabSelector : MonoBehaviour
            PlayerPrefs.GetInt("progress", progress);*/
 
         levels = new GameObject[n];
+
+
+        next = GameObject.Find("next");
+
         level = GameObject.Find("Level");
         level.SetActive(false);
 
@@ -119,68 +157,73 @@ public class TabSelector : MonoBehaviour
 
         goldDone = GameObject.Find("GoldDone");
         goldDone.SetActive(false);
+
+
+
     }
 
     private void Update()
     {
-        /* if (winCondition)
-         {
-             if (goldLevel.active)
-                 goldLevelDone.SetActive(true);
-             else
-                 winScreen.SetActive(true);
-         }
-         else
-         {
-             goldLevelDone.SetActive(false);
-             winScreen.SetActive(false);
-         }
-        if (giftCondition)
-            giftDone.SetActive(true);
-        else giftDone.SetActive(false);
-        if (coinsCondition)
-            coinsDone.SetActive(true);
-        else coinsDone.SetActive(false);
-        if (goldCondition)
-            goldDone.SetActive(true);
-        else goldDone.SetActive(false);
-        */
-        if(LevelM.correctForms == LevelM.countForms && LevelM.LevelLoad == true)
+        /*if (winCondition)
         {
-           // Debug.Log("WIN");
-        }
-        if (LevelM.correctForms == LevelM.countForms&& winCondition)
-        {
-            for(int i=0;i<7;i++)
-            {
-                GameObject.Find("Particle System "+(i+1).ToString()).GetComponent<ParticleSystem>().Play();
-            }
-            if (currentLevel > progress && winCondition)
-            {
-                progress++;
-                progressCheck();
+            if (goldLevel.active)
+                goldLevelDone.SetActive(true);
+            else
                 winScreen.SetActive(true);
-                //gift and other stuff will be progressing
-                //SaveGame();
-            }
-            winCondition = false;
         }
+        else
+        {
+            goldLevelDone.SetActive(false);
+            winScreen.SetActive(false);
+        }
+       if (giftCondition)
+           giftDone.SetActive(true);
+       else giftDone.SetActive(false);
+       if (coinsCondition)
+           coinsDone.SetActive(true);
+       else coinsDone.SetActive(false);
+       if (goldCondition)
+           goldDone.SetActive(true);
+       else goldDone.SetActive(false);
+       */
+        string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
+        if (LevelM.correctForms == LevelM.countForms && LevelM.LevelLoad == true && LevelM.correctForms != 0 && LevelM.countForms != 0 && !winCondition&& level.active)
+        {
+            winCondition = true;
+            winScreen.SetActive(true);
+            if (winScreen.active&& !mainMenu.active)
+            {
+                for (int i = 0; i < winParticles.Count; i++)
+                {
+                    winParticles[i].Play();
+                }
+            }
+            if (progress <= int.Parse(name[1])) 
+            progress++;
+            saveGame(0);
+        }
+        Debug.Log(progress);
+
+        /*  if (LevelM.correctForms == LevelM.countForms&& winCondition)
+          {
+              for(int i=0;i<7;i++)
+              {
+                  GameObject.Find("Particle System "+(i+1).ToString()).GetComponent<ParticleSystem>().Play();
+              }
+              if (currentLevel > progress && winCondition)
+              {
+                  progress++;
+                  progressCheck();
+                  winScreen.SetActive(true);
+                  //gift and other stuff will be progressing
+                  //SaveGame();
+              }
+              winCondition = false;
+          }*/
     }
 
     public void OpenTab(string nameOfButton)
     {
-        if (nameOfButton == "SaSave")
-        {
-            Debug.Log("Save");
-            DataM.SetString("progress", progress.ToString());
-        }
-        if (nameOfButton == "LoLoad")
-        {
-            Debug.Log("Loading");
-            progress=int.Parse(DataM.GetString("progress"));
-            
-        }
-
         if (nameOfButton == "play")
         {
             worldSelection.SetActive(true);
@@ -200,33 +243,53 @@ public class TabSelector : MonoBehaviour
         }
 
         if (nameOfButton == "closeSettings")
+        {
+            saveGame(1);
             settings.SetActive(false);
+        }
 
+        if(nameOfButton == "next")
+        {
+            Debug.Log("sada");
+            level.SetActive(false);
+            string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
+            StartCoroutine(waitForFormLoad(progress.ToString(),1));
+            //   StartCoroutine(waitForFormLoad("level " + name[1]));                       
+        }
         if (nameOfButton == "collections")
             collections.SetActive(true);
 
         if (nameOfButton == "stop")
         {
             pauseScreen.SetActive(true);
-            musicSoundStuff(nameOfButton, 0);
-
-
+            musicSoundStuff(nameOfButton, 0);    
         }
 
         if (nameOfButton == "closePause")
+        {
+            saveGame(1);
             pauseScreen.SetActive(false);
+
+        }
+
 
         if (nameOfButton == "home")
         {
+            mainMenu.SetActive(true);
+            winCondition = false;
             pauseScreen.SetActive(false);
             level.SetActive(false);
-            mainMenu.SetActive(true);
+            winScreen.SetActive(false);
+
+            LevelM.countForms=0;
+            LevelM.correctForms=0;
         }
 
         if (nameOfButton == "goBack")
             LevelM.RegenerateCurrentLevel();
 
-
+        if (nameOfButton == "goBack")
+            LevelM.RegenerateCurrentLevel();
         if (nameOfButton == "backCollections")
         {
             collections.SetActive(false);
@@ -246,7 +309,7 @@ public class TabSelector : MonoBehaviour
             WorldProgressCheck();
         }
 
-        if (nameOfButton == "claimGoldFigure")
+      /*  if (nameOfButton == "claimGoldFigure")
         {
             //DO SOMETHING
             goldLevel.SetActive(false);
@@ -277,7 +340,7 @@ public class TabSelector : MonoBehaviour
             goldDone.SetActive(false);
             goldCondition = false;
             mainMenu.SetActive(true);
-        }
+        }*/
 
         if (nameOfButton == "music" || nameOfButton == "sound")
             musicSoundStuff(nameOfButton, 1);
@@ -299,6 +362,24 @@ public class TabSelector : MonoBehaviour
 
     }
 
+    void saveGame(int type)
+    {
+        if (type == 0)
+        {
+            Debug.Log("Save");
+            DataM.SetString("progress", progress.ToString());
+            //Other progress in game
+        }
+
+        //Sound system
+        if (type == 1)
+        {
+            DataM.SetString("music", music.ToString());
+            Debug.Log(music);
+            DataM.SetString("sound", sound.ToString());
+        }
+    }
+
     void musicSoundStuff(string button, int mode) // 0 - just check    1 - change
     {
         if (mode == 1)
@@ -308,12 +389,10 @@ public class TabSelector : MonoBehaviour
                 if (music)
                 {
                     GameObject.Find(button).GetComponent<Image>().sprite = off;
-                    //   GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 0;
                 }
                 else
                 {
                     GameObject.Find(button).GetComponent<Image>().sprite = on;
-                    //   GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 1;
                 }
                 music = !music;
 
@@ -323,13 +402,11 @@ public class TabSelector : MonoBehaviour
             {
                 if (sound)
                 {
-                    GameObject.Find(button).GetComponent<Image>().sprite = off;
-                    //   GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 0;
+                    GameObject.Find(button).GetComponent<Image>().sprite = off;                    
                 }
                 else
                 {
                     GameObject.Find(button).GetComponent<Image>().sprite = on;
-                    //    GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 1;
                 }
                 sound = !sound;
 
@@ -364,7 +441,8 @@ public class TabSelector : MonoBehaviour
 
     void LoadLevel(string button)
     {
-        string[] name = button.Split(' ');
+        //       winScreen.SetActive(false);
+        level.SetActive(false);
 
         GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + GameObject.Find(button).GetComponentInChildren<Text>().text;
         foreach (Transform child in GameObject.Find("ScaleThem").transform)
@@ -375,19 +453,24 @@ public class TabSelector : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        StartCoroutine(waitForFormLoad(button));    
+        StartCoroutine(waitForFormLoad(button,0));    
         level.SetActive(true);
        
     }
 
 
-    public IEnumerator waitForFormLoad(string button)
+    public IEnumerator waitForFormLoad(string button,int state)
     {
+
         while (LevelM.Init == false)
         {
             yield return new WaitForSeconds(0.5f);        
         }
+        if(state==0)
         LevelM.LoadLevel(int.Parse("0" + GameObject.Find(button).GetComponentInChildren<Text>().text));
+        if( state == 1)
+            LevelM.LoadLevel(int.Parse("0" + button));
+
         levelSelection.SetActive(false);
     }
 
@@ -471,11 +554,4 @@ public class TabSelector : MonoBehaviour
 
         }
     }
-
-    //After any move we need to save game progress!!!!
-  /*  void SaveGame()
-    {
-        PlayerPrefs.SetInt("progress", progress);
-
-    }*/
 }

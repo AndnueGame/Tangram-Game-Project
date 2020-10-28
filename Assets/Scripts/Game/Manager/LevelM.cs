@@ -43,8 +43,6 @@ public class LevelM : MonoBehaviour
     {
         instance = this;
 
-        DataM.SetString("progress", "100");
-
         //Loading Textures for Form
         Empty = Resources.Load<Texture2D>("FormEditor/Shape_Empty");
         TriangleDL = Resources.Load<Texture2D>("FormEditor/Shape_TriangleDL");
@@ -55,7 +53,6 @@ public class LevelM : MonoBehaviour
 
         LevelTilesShouldBe = ScriptableObject.CreateInstance<Form>();
         LevelTilesShouldBe.Resize(9, 12);
-      //  LoadLevel(1);
         LevelTilesCurrent = ScriptableObject.CreateInstance<Form>();
         LevelTilesCurrent.Resize(9, 12);
 
@@ -87,10 +84,12 @@ public class LevelM : MonoBehaviour
     static public void NewL()
     {
         instance.Start();
+    
     }
 
     public static bool LoadLevel(int Number, bool AutoGenerate = true)
     {
+
         if (Number < 0 || Number >= instance.LevelList.Count) return false;
 
         CurrentLevel = new Level();
