@@ -23,7 +23,7 @@ public class LevelM : MonoBehaviour
 
     //For Calculating Level Size
     private static int minx, miny, maxx, maxy;
-    public float LevelX, LevelY;
+    public static float LevelX, LevelY;
     public static int LevelWUneven, LevelHUneven;
 
     public static List<FormController> FormsInLevel = new List<FormController>();
@@ -36,12 +36,14 @@ public class LevelM : MonoBehaviour
 
     public static int countForms;
     public static int correctForms;
-    public static Image levelShadow1_1;
-    public static Image levelShadow1_2;
+    public static bool LevelLoad = false;
+
 
     private void Start()
     {
         instance = this;
+
+        DataM.SetString("progress", "100");
 
         //Loading Textures for Form
         Empty = Resources.Load<Texture2D>("FormEditor/Shape_Empty");
@@ -57,40 +59,28 @@ public class LevelM : MonoBehaviour
         LevelTilesCurrent = ScriptableObject.CreateInstance<Form>();
         LevelTilesCurrent.Resize(9, 12);
 
-        LevelSprite = GenerateLevelSprite();
-        LevelShadow1.sprite = LevelSprite;
-        LevelShadow2.sprite = LevelSprite;
-        SetLevelSize(); //To Center the Level, does not work yet
-
-        levelShadow1_1 = LevelShadow1;
-        levelShadow1_2 = LevelShadow2;
-
-
        Init = true;
     }
 
-    void SetLevelSize()
+    static void SetLevelSize()
     {
         int LevelWidth = maxx - minx;
         int LevelHeight = maxy - miny;
 
-        RectTransform shadow = LevelShadow1.GetComponent<RectTransform>();
-        //LevelX = (9 - LevelWidth - 1)  * 32;
-        LevelX = 0;
-        LevelY = (12 - LevelHeight - 1) * 32;
-        LevelY = 32;
+        RectTransform shadow = instance.LevelShadow1.GetComponent<RectTransform>();
+        LevelX = (9 - LevelWidth)  * 32 - minx*64;
+        LevelY = 235 - (12 - LevelHeight) * 32 +     miny*64;
 
         LevelWUneven = 0;
         LevelHUneven = 0;
         if (LevelWidth % 2 == 1) LevelWUneven = 1;
         if (LevelHeight % 2 == 1) LevelHUneven = 1;
 
-        shadow.anchoredPosition = new Vector2(LevelX / 2, 235/*-LevelY / 2*/);
-        shadow = LevelShadow2.GetComponent<RectTransform>();
+        shadow.anchoredPosition = new Vector2(LevelX, LevelY);
+        shadow = instance.LevelShadow2.GetComponent<RectTransform>();
         shadow.anchoredPosition = new Vector2(LevelX,LevelY);
 
-       // Debug.Log(LevelWidth);
-       // Debug.Log(LevelHeight);
+        
 
     }
 
@@ -121,9 +111,10 @@ public class LevelM : MonoBehaviour
             }
 
             LevelSprite = GenerateLevelSprite();
-            levelShadow1_1.sprite = LevelSprite;
-            levelShadow1_2.sprite = LevelSprite;
-            //SetLevelSize(); //To Center the Level, does not work yet
+            instance.LevelShadow1.sprite = LevelSprite;
+            instance.LevelShadow2.sprite = LevelSprite;
+            SetLevelSize(); //To Center the Level, does not work yet
+            LevelLoad = true;
 
             if (AutoGenerate == true) return Generate();
             return true;
@@ -138,13 +129,24 @@ public class LevelM : MonoBehaviour
     {
         if (CurrentLevel.Data != null)
         {
-            ;
+            int CountX =  40;
+            int CountY = -40;
+
             foreach (LevelData ld in CurrentLevel.Data)
             {
                 FormController Cache = instance.SpawnForm(ld.FormName);
                 if (Cache != null && ld != null)
                 {
+                    Cache.xpos = CountX;
+                    Cache.ypos = CountY;
                     instance.StartCoroutine(instance.waitForFormLoad(Cache, ld));
+                }
+
+                CountX += 100;
+                if (CountX > 300)
+                {
+                    CountY -= 100;
+                    CountX = 40;
                 }
             }
 
@@ -179,7 +181,10 @@ public class LevelM : MonoBehaviour
                     LEMFCRT.anchorMin = new Vector2(0, 1);
                     LEMFCRT.anchorMax = new Vector2(0, 1);
                     LEMFCRT.pivot = new Vector2(0, 1);
+                    
+ 
                     FormsInLevel.Add(LEMFC);
+                    
                     return LEMFC;
 
                 }
@@ -204,8 +209,8 @@ public class LevelM : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        lem.xpos = LED.x;
-        lem.ypos = LED.y;
+        //lem.xpos = LED.x;
+        //lem.ypos = LED.y;
 
         while (lem.FormBuild.Rotated != LED.RotationState)
         {
@@ -333,7 +338,6 @@ public class LevelM : MonoBehaviour
                             CacheTri = Cache.Get(fx, fy);
                             int realX = ld.x / 64 + fx;
                             int realY = ld.y / 64 * -1 + fy;
-                            Debug.Log(CacheTri.Type);
 
                             if (CacheTri.Type != SimpleTriforce.TriforceType.EMPTY)
                             {
@@ -351,7 +355,6 @@ public class LevelM : MonoBehaviour
                 }
             }
         }
-        Debug.Log(LevelForm.Get(0, 0).Type);
         Sprite retSprite = GenerateFormSprite(LevelForm);
         return retSprite;
     }
@@ -360,22 +363,23 @@ public class LevelM : MonoBehaviour
     public static bool CheckNoCollision(FormController ToCheck)
     {
         bool ret = true;
-        return true;
+        //return true;
 
         for (int y = 0; y < ToCheck.FormBuild.Height; y++)
         {
             for (int x = 0; x < ToCheck.FormBuild.Width; x++)
             {
 
-                int realX = ToCheck.xpos / 64 + x;
-                int realY = -ToCheck.ypos / 64 + y;
+                int realX = (ToCheck.xpos - (int)LevelM.LevelX) / 64 - 1 +x;
+                int realY = (ToCheck.ypos + (int)LevelM.LevelY + 235) / 64 * -1 - 2 +y;
+
 
                 SimpleTriforce Cache = new SimpleTriforce();
                 Cache = ToCheck.FormBuild.Get(x, y);
 
                 if (Cache.Type != SimpleTriforce.TriforceType.EMPTY)
                 {
-                    //if (LevelTilesShouldBe.Get(realX, realY).Type == SimpleTriforce.TriforceType.EMPTY) return false;
+                    if (LevelTilesShouldBe.Get(realX, realY).Type == SimpleTriforce.TriforceType.EMPTY) return false;
 
                     switch (LevelTilesCurrent.Get(realX, realY).Type)
                     {
@@ -433,15 +437,21 @@ public class LevelM : MonoBehaviour
                 {
                     SimpleTriforce CacheTri = new SimpleTriforce();
                     CacheTri = fc.FormBuild.Get(x, y);
-                    realX = fc.xpos / 64 + x;
-                    realY = fc.ypos / 64 * -1 + y;
+                    realX = (fc.xpos - (int)LevelX) / 64 + x - 1;
+                    realY = (fc.ypos + (int)LevelY + 235) / 64 * -1 + y -2;
 
 
                     if (CacheTri.Type != SimpleTriforce.TriforceType.EMPTY)
                     {
-                        if (LevelTilesCurrent.Get(realX, realY).Type != SimpleTriforce.TriforceType.EMPTY) CacheTri.Type = SimpleTriforce.TriforceType.FILLED;
-
-                        LevelTilesCurrent.Set(realX, realY, CacheTri);
+                        if (LevelTilesCurrent.Get(realX, realY).Type != SimpleTriforce.TriforceType.EMPTY)
+                        {
+                            LevelTilesCurrent.Set(realX, realY, new SimpleTriforce(SimpleTriforce.TriforceType.FILLED));
+                        }
+                        else
+                        {
+                            LevelTilesCurrent.Set(realX, realY, CacheTri);
+                        }
+                        
                     }
                 }
             }
@@ -451,8 +461,8 @@ public class LevelM : MonoBehaviour
 
     private void Update()
     {
-        if (Init == false) return;
 
+        if (Init == false || LevelLoad == false) return;
 
         countForms = 0;
         correctForms = 0;
@@ -474,7 +484,7 @@ public class LevelM : MonoBehaviour
         //Is LevelComplete? You can even percentage correctForms/(12*9) = % Completed
         //But this counts in empty tiles aswell, so you have to remove them
 
-        //if (correctForms == countForms) Debug.Log("Complete");
+        if (correctForms == countForms) Debug.Log("Complete");
     }
 }
 

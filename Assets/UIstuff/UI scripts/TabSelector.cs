@@ -145,9 +145,9 @@ public class TabSelector : MonoBehaviour
             goldDone.SetActive(true);
         else goldDone.SetActive(false);
         */
-        if(LevelM.correctForms == LevelM.countForms)
+        if(LevelM.correctForms == LevelM.countForms && LevelM.LevelLoad == true)
         {
-            Debug.Log("WIN");
+           // Debug.Log("WIN");
         }
         if (LevelM.correctForms == LevelM.countForms&& winCondition)
         {
@@ -316,6 +316,8 @@ public class TabSelector : MonoBehaviour
                     //   GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 1;
                 }
                 music = !music;
+
+                SoundM.EnableMusic(music);
             }
             if (button == "sound")
             {
@@ -330,6 +332,8 @@ public class TabSelector : MonoBehaviour
                     //    GameObject.Find("MainCamera").GetComponent<AudioSource>().volume = 1;
                 }
                 sound = !sound;
+
+                SoundM.EnableSound(sound);
             }
         }
         else

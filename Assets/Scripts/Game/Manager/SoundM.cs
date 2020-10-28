@@ -67,6 +67,7 @@ public class SoundM : MonoBehaviour
     public static void PlaySound(int Number)
     {
         if (!Init || Number<0 || Number >= instance.SoundList.Count) return;
+        if (SoundEnabled == false) return;
         Effects.PlayOneShot(instance.SoundList[Number], 1);
     }
 
