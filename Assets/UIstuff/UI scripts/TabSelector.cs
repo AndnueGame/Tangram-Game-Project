@@ -145,7 +145,10 @@ public class TabSelector : MonoBehaviour
             goldDone.SetActive(true);
         else goldDone.SetActive(false);
         */
-
+        if(LevelM.correctForms == LevelM.countForms)
+        {
+            Debug.Log("WIN");
+        }
         if (LevelM.correctForms == LevelM.countForms&& winCondition)
         {
             for(int i=0;i<7;i++)

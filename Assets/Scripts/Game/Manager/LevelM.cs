@@ -85,9 +85,9 @@ public class LevelM : MonoBehaviour
         if (LevelWidth % 2 == 1) LevelWUneven = 1;
         if (LevelHeight % 2 == 1) LevelHUneven = 1;
 
-        shadow.anchoredPosition = new Vector2(LevelX / 2, -LevelY / 2);
+        shadow.anchoredPosition = new Vector2(LevelX / 2, 235/*-LevelY / 2*/);
         shadow = LevelShadow2.GetComponent<RectTransform>();
-        shadow.anchoredPosition = new Vector2(LevelX, LevelY);
+        shadow.anchoredPosition = new Vector2(LevelX,LevelY);
 
        // Debug.Log(LevelWidth);
        // Debug.Log(LevelHeight);
@@ -302,7 +302,7 @@ public class LevelM : MonoBehaviour
         Form LevelForm = ScriptableObject.CreateInstance<Form>();
         LevelForm.Width = 9;
         LevelForm.Height = 12;
-        LevelForm.Resize(9, 12);
+        LevelForm.Resize(9, 9);
 
         minx = 5;
         miny = 5;
