@@ -1,5 +1,4 @@
-{"FormName":"Tri7","Color":3,"RotationState":0,"x":128,"y":0}
-{"FormName":"Tri3.1","Color":1,"RotationState":1,"x":64,"y":-256}
-{"FormName":"Tri2","Color":3,"RotationState":0,"x":64,"y":0}
-{"FormName":"Tri1","Color":1,"RotationState":2,"x":64,"y":-128}
-{"FormName":"Squ4","Color":1,"RotationState":1,"x":192,"y":-256}
+{"FormName":"Tri7","Color":3,"RotationState":0,"x":64,"y":0}
+{"FormName":"Tri3.1","Color":1,"RotationState":1,"x":64,"y":-128}
+{"FormName":"Tri2","Color":3,"RotationState":0,"x":0,"y":0}
+{"FormName":"Squ4","Color":1,"RotationState":1,"x":128,"y":-128}
