@@ -26,12 +26,16 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public bool isDrag = false;
     bool wasInBottom = true;
 
+    public float RealX;
+    public float RealY;
+
     private void Start()
     {
         FormBuild = ScriptableObject.CreateInstance<Form>();
         FormPlan.CloneTo(FormBuild);
         rectTransform = GetComponent<RectTransform>();
         Init = true;
+        
     }
 
     public void UpdateImage()
@@ -40,6 +44,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         FormSprite.sprite = LevelSprite;
         FormSprite.color = MISC.GetColorCode(FormBuild.Color);
         FormSprite.rectTransform.sizeDelta = new Vector2(LevelSprite.texture.width, LevelSprite.texture.height);
+        rectTransform.anchoredPosition = new Vector2(xpos, ypos);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -59,10 +64,10 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
             //Bounds
             if (rectTransform.anchoredPosition.x < 0) rectTransform.anchoredPosition = new Vector2(000, y);
             if (rectTransform.anchoredPosition.y > 0) rectTransform.anchoredPosition = new Vector2(x, 000);
-            if (rectTransform.anchoredPosition.x > 576 - FormBuild.Width * 32 - 64) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32 - 64, y);
+            if (rectTransform.anchoredPosition.x >  576 - FormBuild.Width  * 32) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32, y);
             if (rectTransform.anchoredPosition.y < -832 + FormBuild.Height * 32) rectTransform.anchoredPosition = new Vector2(x, -832 + FormBuild.Height * 32);
 
-            if (rectTransform.anchoredPosition.y < -12 * 32)
+            if (rectTransform.anchoredPosition.y < -680)
             {
                 gameObject.transform.parent = GameObject.Find("ScaleThem").transform;
                 isInFormContainer = true;
@@ -81,7 +86,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                 gameObject.Tween("SizeUp", Vector3.one * 0.5f, Vector3.one * 1, 0.1f, TweenScaleFunctions.CubicEaseIn, updateSize);
             }
         }
-
+        
 
         LEM.SelectedForm = this.gameObject;
     }
@@ -113,7 +118,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         {
             if (rectTransform.anchoredPosition.x < 0) rectTransform.anchoredPosition = new Vector2(000, y);
             if (rectTransform.anchoredPosition.y > 0) rectTransform.anchoredPosition = new Vector2(x, 000);
-            if (rectTransform.anchoredPosition.x > 576 - FormBuild.Width * 32 - 64) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32 - 64, y);
+            if (rectTransform.anchoredPosition.x >  576 - FormBuild.Width  * 32) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32, y);
             if (rectTransform.anchoredPosition.y < -832 + FormBuild.Height * 32) rectTransform.anchoredPosition = new Vector2(x, -832 + FormBuild.Height * 32);
 
 
@@ -135,6 +140,9 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
             xpos = (int)x;
             ypos = (int)y;
 
+            RealX = (xpos - (int)LevelM.LevelX) / 64 - 1;
+            RealY = (ypos + (int)LevelM.LevelY + 235) / 64 * -1 - 2;
+
             if (LevelM.CheckNoCollision(this) == false)
             {
                 if (wasInBottom == true)
@@ -143,13 +151,18 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                     gameObject.Tween("SizeUp", Vector3.one, Vector3.one * 0.5f, 0.1f, TweenScaleFunctions.CubicEaseIn, updateSize);
                     isInFormContainer = true;
                     rectTransform.anchoredPosition = StartPosition;
+                    xpos = (int) StartPosition.x;
+                    ypos = (int) StartPosition.y;
                 }
                 else
                 {
                     rectTransform.anchoredPosition = StartPosition;
+                    xpos = (int)StartPosition.x;
+                    ypos = (int)StartPosition.y;
                 }
             }
         }
+
         isDrag = false;
         LevelM.RegenerateCurrentLevel();
         

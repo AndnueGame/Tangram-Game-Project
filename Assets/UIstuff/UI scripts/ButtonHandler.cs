@@ -14,6 +14,7 @@ public class ButtonHandler : MonoBehaviour
 
     public void ClickOnButton()
     {
+            SoundM.PlaySound(0);
            tab.OpenTab(this.name);
         
     }       

@@ -5635,11 +5635,11 @@ RectTransform:
   m_Father: {fileID: 1103121770}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 576, y: 768}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 235}
+  m_SizeDelta: {x: 594, y: 588}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &489272144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9405,9 +9405,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26abe0ffb54d2f40ac725ca4a61732c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GenerateObjects: 0
-  BackgroundMusic: {fileID: 0}
-  SoundList: []
+  GenerateObjects: 1
+  BackgroundMusic: {fileID: 8300000, guid: 7c633b5ae22bf5c499658b9eb3361014, type: 3}
+  SoundList:
+  - {fileID: 8300000, guid: 826d64c1f4d808d428313f6a2c369462, type: 3}
 --- !u!1 &782247640
 GameObject:
   m_ObjectHideFlags: 0
@@ -12658,7 +12659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1103121770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12674,11 +12675,11 @@ RectTransform:
   m_Father: {fileID: 1840554494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 367, y: 587}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 720, y: 1280}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1103121771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12710,7 +12711,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 59fa733263ccf51439071d181a7551fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0168f1f7f478e1743934946e9b5c20e9, type: 3}
   m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16970,6 +16971,8 @@ MonoBehaviour:
   LevelSprite: {fileID: 0}
   isInFormContainer: 1
   isDrag: 0
+  RealX: 0
+  RealY: 0
 --- !u!114 &1461277602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23031,7 +23034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 235}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 594, y: 588}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1925783220
@@ -25142,8 +25145,6 @@ MonoBehaviour:
     type: 3}
   LevelShadow1: {fileID: 1925783221}
   LevelShadow2: {fileID: 489272144}
-  LevelX: 0
-  LevelY: 0
   LevelScale: 0
 --- !u!1 &2097165661
 GameObject:
