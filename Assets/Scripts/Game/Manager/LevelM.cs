@@ -43,8 +43,6 @@ public class LevelM : MonoBehaviour
     {
         instance = this;
 
-        DataM.SetString("progress", "100");
-
         //Loading Textures for Form
         Empty = Resources.Load<Texture2D>("FormEditor/Shape_Empty");
         TriangleDL = Resources.Load<Texture2D>("FormEditor/Shape_TriangleDL");
