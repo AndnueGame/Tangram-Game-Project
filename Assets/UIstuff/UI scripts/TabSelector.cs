@@ -76,6 +76,7 @@ public class TabSelector : MonoBehaviour
         ff = new List<GameObject>();
 
         Debug.Log("Loading");
+        if(int.TryParse(DataM.GetString("progress"),out progress))
         progress = int.Parse(DataM.GetString("progress"));
         if (progress == 0) progress = 1;
 
