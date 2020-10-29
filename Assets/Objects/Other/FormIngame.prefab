@@ -166,6 +166,10 @@ MonoBehaviour:
   ypos: 0
   Init: 0
   LevelSprite: {fileID: 0}
+  isInFormContainer: 1
+  isDrag: 0
+  RealX: 0
+  RealY: 0
 --- !u!114 &6548102618217275041
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,6 +27,9 @@ public class TabSelector : MonoBehaviour
     public int goldenPieceProgress = 0;
     public int collection = 0;
     int currentLevelCount = 0;
+    public int coins = 0;
+
+    public List<Text> moneyCounters;
 
     //For muliply difficulty
     float giftScore;
@@ -49,7 +52,9 @@ public class TabSelector : MonoBehaviour
     GameObject winScreen;
     GameObject settings;
     GameObject next;
-
+    GameObject giftBar;
+    GameObject giftBox;
+    GameObject giftBoxOpen;
     GameObject[] levels;
 
     List<GameObject> ff;
@@ -69,8 +74,9 @@ public class TabSelector : MonoBehaviour
     int m = 1;
     int selectedWorld = 0;
     int currentLevel = 0;
+    int worldProgress = 0;
 
-    bool alreadyFinished=false;
+    bool alreadyFinished = false;
 
     private void Start()
     {
@@ -80,51 +86,82 @@ public class TabSelector : MonoBehaviour
         Debug.Log("==================== Start");
         int.TryParse(DataM.GetString("progress"), out progress);
 
-        if (progress == 0) progress = 1;
+        if (!PlayerPrefs.HasKey("progress") || progress<=0)
+            progress = 1;
 
-        if (DataM.GetString("music") == "True")
+
+        if (!PlayerPrefs.HasKey("coins"))
+            coins = 0;
+        else
+            int.TryParse(PlayerPrefs.GetString("coins"), out coins);
+            
+
+        for (int i = 0; i < moneyCounters.Count; i++)
         {
+            moneyCounters[i].text = coins.ToString();
+        }
+        if (progress % 25 != 0)
+        {
+            GameObject.Find("GiftBar").GetComponent<Slider>().value = (progress - (progress % 25) * 25) * 4;
+            if (progress % 25 == 0)
+                GameObject.Find("GiftBar").GetComponent<Slider>().value = 0;
+        }
+        
+
+
+
+        sound = true;
+
+        if (PlayerPrefs.HasKey("music"))
+        {
+            if (DataM.GetString("music") == "True")
+            {
+                music = true;
+                SoundM.MusicEnabled = true;
+
+            }
+            else
+            {
+                music = false;
+                GameObject.Find("Audio_Music").GetComponent<AudioSource>().Stop();
+                SoundM.MusicEnabled = false;
+            }
+        }
+        else
             music = true;
-            SoundM.MusicEnabled = true;
 
+        if (PlayerPrefs.HasKey("music"))
+        {
+            if (DataM.GetString("sound") == "True")
+            {
+                sound = true;
+                SoundM.SoundEnabled = true;
+            }
+            else
+            {
+                sound = false;
+                GameObject.Find("Audio_Effects").GetComponent<AudioSource>().Stop();
+                SoundM.SoundEnabled = false;
+            }
+
+            Debug.Log("music " + music + " / " + "sound " + sound);
         }
         else
-        {
-            music = false;
-            GameObject.Find("Audio_Music").GetComponent<AudioSource>().Stop();
-            SoundM.MusicEnabled = false;
-        }
-
-        if (DataM.GetString("sound") == "True")
-        {
             sound = true;
-            SoundM.SoundEnabled = true;
-        }
-        else
-        {
-            sound = false;
-            GameObject.Find("Audio_Effects").GetComponent<AudioSource>().Stop();
-            SoundM.SoundEnabled = false;
-        }
+       // DataM.SetInt("coins", 0);
+        //DataM.SetInt("progress", 1);
+        //DataM.SetString("music", "True");
+        //DataM.SetString("sound", "True");
 
-        Debug.Log("music " + music + " / " + "sound " + sound);
-
+        worldProgress = progress % 25;
         PlayerPrefs.GetInt("progress", progress);
-        /*   PlayerPrefs.GetInt("progress", progress);
-           PlayerPrefs.GetInt("progress", progress);
-           PlayerPrefs.GetInt("progress", progress);
-           PlayerPrefs.GetInt("progress", progress);
-           PlayerPrefs.GetInt("progress", progress);
-           PlayerPrefs.GetInt("progress", progress);*/
 
         levels = new GameObject[n];
-
 
         next = GameObject.Find("next");
 
         level = GameObject.Find("Level");
         level.SetActive(false);
-
 
         settings = GameObject.Find("SettingsScreen");
         settings.SetActive(false);
@@ -153,6 +190,11 @@ public class TabSelector : MonoBehaviour
         winScreen.SetActive(false);
 
         giftDone = GameObject.Find("GiftDone");
+
+        giftBox = GameObject.Find("gift");
+        giftBox.SetActive(false);
+        giftBoxOpen = GameObject.Find("giftOpen");
+        giftBoxOpen.SetActive(false);
         giftDone.SetActive(false);
 
         coinsDone = GameObject.Find("CoinsDone");
@@ -160,9 +202,6 @@ public class TabSelector : MonoBehaviour
 
         goldDone = GameObject.Find("GoldDone");
         goldDone.SetActive(false);
-
-
-
     }
 
     private void Update()
@@ -189,12 +228,12 @@ public class TabSelector : MonoBehaviour
            goldDone.SetActive(true);
        else goldDone.SetActive(false);
        */
-        if (LevelM.correctForms >= LevelM.countForms && LevelM.LevelLoad == true && LevelM.correctForms != 0 && LevelM.countForms != 0 && !winCondition&& level.active)
+        if (LevelM.correctForms >= LevelM.countForms && LevelM.LevelLoad == true && LevelM.correctForms != 0 && LevelM.countForms != 0 && !winCondition && level.active)
         {
             string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
             winCondition = true;
             winScreen.SetActive(true);
-            if (winScreen.active&& !mainMenu.active)
+            if (winScreen.active && !mainMenu.active)
             {
                 for (int i = 0; i < winParticles.Count; i++)
                 {
@@ -205,8 +244,29 @@ public class TabSelector : MonoBehaviour
             int Cache = 0;
             Debug.Log("==================== Update");
             int.TryParse(name[1], out Cache);
-            if (progress <= Cache) 
-            progress++;
+            if (progress <= Cache)
+            {
+                progress++;
+                GameObject.Find("GiftBar").GetComponent<Slider>().value += 4;
+
+                if (GameObject.Find("GiftBar").GetComponent<Slider>().value == 100)
+                {                  
+                     
+                    giftDone.SetActive(true);
+                    giftBox.SetActive(true);
+                }
+            }
+
+            if (worldProgress < progress)
+            {
+
+                giftCondition = true;
+            }
+
+            for (int i = 0; i < moneyCounters.Count; i++)
+            {
+                moneyCounters[i].text = coins.ToString();
+            }
             saveGame(0);
         }
         //Debug.Log(LevelM.correctForms + " / " + LevelM.countForms);
@@ -245,20 +305,19 @@ public class TabSelector : MonoBehaviour
             LevelM.FormsInLevel.Clear();
             LevelM.countForms = 0;
             LevelM.correctForms = 0;
+            currentLevelCount++;           
 
-            currentLevelCount++;
-           
-            level.SetActive(false);
+            winCondition = false;
+            winScreen.SetActive(false);
 
             //string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
 
 
 
-            winCondition = false;
-            winScreen.SetActive(false);
+
             string[] curLevel = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
             GameObject.Find("LevelCounter").GetComponent<Text>().text = "Level " + (int.Parse(curLevel[1])+1).ToString();
-            level.SetActive(true);
+          
             
             //GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + currentLevelCount.ToString();
 
@@ -270,9 +329,31 @@ public class TabSelector : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-
+            level.SetActive(false); 
             StartCoroutine(waitForFormLoad(currentLevelCount.ToString(), 1));
+            level.SetActive(true);
         }
+
+        if (nameOfButton == "open")
+        {
+          
+            StartCoroutine(waitForBoxChanged());
+            GameObject.Find("GiftBar").GetComponent<Slider>().value = 0;
+            giftDone.SetActive(false);
+            coinsDone.SetActive(true);
+
+        }
+        if (nameOfButton == "claimCoins")
+        {
+            coins += 50;
+            for (int i = 0; i < moneyCounters.Count; i++)
+            {
+                moneyCounters[i].text = coins.ToString();
+            }
+            coinsDone.SetActive(false);
+            //waitForCoins();
+        }
+           
         if (nameOfButton == "collections")
             collections.SetActive(true);
 
@@ -318,9 +399,6 @@ public class TabSelector : MonoBehaviour
 
            // GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " +name[1];
             
-            
-           
-
             string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
             foreach (Transform child in GameObject.Find("ScaleThem").transform)
             {
@@ -333,7 +411,6 @@ public class TabSelector : MonoBehaviour
 
             StartCoroutine(waitForFormLoad(currentLevelCount.ToString(), 1));
         }
-
 
         if (nameOfButton == "backCollections")
         {
@@ -389,13 +466,10 @@ public class TabSelector : MonoBehaviour
 
         if (nameOfButton == "music" || nameOfButton == "sound")
             musicSoundStuff(nameOfButton, 1);
-
-
     }
 
     void progressCheck()
     {
-
         if (giftProgress >= 100)
         {
 
@@ -404,7 +478,6 @@ public class TabSelector : MonoBehaviour
         {
 
         }
-
     }
 
     void saveGame(int type)
@@ -413,6 +486,7 @@ public class TabSelector : MonoBehaviour
         {
             Debug.Log("Save");
             DataM.SetString("progress", progress.ToString());
+            DataM.SetString("coins", coins.ToString());
             //Other progress in game
         }
 
@@ -495,13 +569,9 @@ public class TabSelector : MonoBehaviour
         level.SetActive(true);
         GameObject.Find("LevelCounter").GetComponent<Text>().text = "Level " + GameObject.Find("tl " + button.Split(' ')[1]).GetComponent<Text>().text;
         levelSelection.SetActive(false);
-
-
-        
+                
         int.TryParse(button.Split(' ')[1], out currentLevelCount);
-
         
-
         foreach (Transform child in GameObject.Find("ScaleThem").transform)
         {
             Destroy(child.gameObject);
@@ -511,9 +581,21 @@ public class TabSelector : MonoBehaviour
             Destroy(child.gameObject);
         }
         StartCoroutine(waitForFormLoad(button, 0));
-
     }
 
+    public IEnumerator waitForBoxChanged()
+    {
+        giftBox.SetActive(false);     
+        giftBoxOpen.SetActive(true);
+        yield return new WaitForSeconds(1);
+    }
+    public IEnumerator waitForCoins()
+    {
+        coins++;
+        giftBox.SetActive(false);
+        yield return new WaitForSeconds(10.0f);
+        giftBoxOpen.SetActive(true);
+    }
 
     public IEnumerator waitForFormLoad(string button,int state)
     {
@@ -531,9 +613,7 @@ public class TabSelector : MonoBehaviour
         if(state==0)
         LevelM.LoadLevel(c1);
         if( state == 1)
-            LevelM.LoadLevel(c2);
-
-       
+            LevelM.LoadLevel(c2);       
     }
 
     void LevelSelection(string button)
