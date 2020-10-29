@@ -103,7 +103,7 @@ public class LEM : MonoBehaviour
     public void RefreshForms()
     {
         FormList.ClearOptions();
-        List<Form>forms = MISC.FindAssetsByType<Form>();
+        List<Form> forms = MISC.LoadForms();
         List<string> options = new List<string>();
 
         for(int x=0; x<forms.Count; x++)
@@ -127,7 +127,7 @@ public class LEM : MonoBehaviour
         LEM_FormController c = null;
         if (Name == "") Name = FormList.options[FormList.value].text;
 
-        List<Form> forms = MISC.FindAssetsByType<Form>();
+        List<Form> forms = MISC.LoadForms();
 
         for (int x = 0; x < forms.Count; x++)
         {

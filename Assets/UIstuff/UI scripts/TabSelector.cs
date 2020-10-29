@@ -77,7 +77,7 @@ public class TabSelector : MonoBehaviour
 
         Debug.Log("Loading");
         progress = int.Parse(DataM.GetString("progress"));
-
+        if (progress == 0) progress = 1;
 
         if (DataM.GetString("music") == "True")
         {
