@@ -26,6 +26,7 @@ public class TabSelector : MonoBehaviour
     public int giftProgress = 0;
     public int goldenPieceProgress = 0;
     public int collection = 0;
+    int currentLevelCount = 0;
 
     //For muliply difficulty
     float giftScore;
@@ -76,8 +77,9 @@ public class TabSelector : MonoBehaviour
         ff = new List<GameObject>();
 
         Debug.Log("Loading");
-        if(int.TryParse(DataM.GetString("progress"),out progress))
-        progress = int.Parse(DataM.GetString("progress"));
+        Debug.Log("==================== Start");
+        int.TryParse(DataM.GetString("progress"), out progress);
+
         if (progress == 0) progress = 1;
 
         if (DataM.GetString("music") == "True")
@@ -200,11 +202,14 @@ public class TabSelector : MonoBehaviour
                 }
             }
             GameObject.Find("levelNumber").GetComponent<Text>().text = "Level " + name[1];
-            if (progress <= int.Parse(name[1])) 
+            int Cache = 0;
+            Debug.Log("==================== Update");
+            int.TryParse(name[1], out Cache);
+            if (progress <= Cache) 
             progress++;
             saveGame(0);
         }
-        Debug.Log(LevelM.correctForms + " / " + LevelM.countForms);
+        //Debug.Log(LevelM.correctForms + " / " + LevelM.countForms);
     }
   
 
@@ -240,9 +245,21 @@ public class TabSelector : MonoBehaviour
             LevelM.FormsInLevel.Clear();
             LevelM.countForms = 0;
             LevelM.correctForms = 0;
+
+            currentLevelCount++;
            
             level.SetActive(false);
-            string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
+
+            //string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
+
+
+
+            winCondition = false;
+            winScreen.SetActive(false);
+            level.SetActive(true);
+            
+            //GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + currentLevelCount.ToString();
+
             foreach (Transform child in GameObject.Find("ScaleThem").transform)
             {
                 Destroy(child.gameObject);
@@ -251,12 +268,8 @@ public class TabSelector : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-       
-            GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + (int.Parse(name[1])+1).ToString();
-            StartCoroutine(waitForFormLoad((int.Parse(name[1]) + 1).ToString(), 1));
-            level.SetActive(true);
-            winCondition = false;
-            winScreen.SetActive(false);
+
+            StartCoroutine(waitForFormLoad(currentLevelCount.ToString(), 1));
         }
         if (nameOfButton == "collections")
             collections.SetActive(true);
@@ -472,7 +485,15 @@ public class TabSelector : MonoBehaviour
         LevelM.correctForms = 0;
         winCondition = false;
         level.SetActive(false);
-        GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + GameObject.Find(button).GetComponentInChildren<Text>().text;
+        level.SetActive(true);
+        levelSelection.SetActive(false);
+
+
+        
+        int.TryParse(button.Split(' ')[1], out currentLevelCount);
+
+        //GameObject.Find("LevelCounter").GetComponent<Text>().text = "Level " + GameObject.Find("tl " + button.Split(' ')[1]).GetComponent<Text>().text;
+
         foreach (Transform child in GameObject.Find("ScaleThem").transform)
         {
             Destroy(child.gameObject);
@@ -481,9 +502,8 @@ public class TabSelector : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        StartCoroutine(waitForFormLoad(button,0));    
-        level.SetActive(true);
-       
+        StartCoroutine(waitForFormLoad(button, 0));
+
     }
 
 
@@ -494,12 +514,18 @@ public class TabSelector : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);        
         }
-        if(state==0)
-        LevelM.LoadLevel(int.Parse("0" + GameObject.Find(button).GetComponentInChildren<Text>().text));
-        if( state == 1)
-            LevelM.LoadLevel(int.Parse("0" + button));
+        int c1 = 0;
+        int c2 = 0;
+        if (state == 0) int.TryParse("0" + button.Split(' ')[1], out c1);
+        int.TryParse("0" + button, out c2);
 
-        levelSelection.SetActive(false);
+
+        if(state==0)
+        LevelM.LoadLevel(c1);
+        if( state == 1)
+            LevelM.LoadLevel(c2);
+
+       
     }
 
     void LevelSelection(string button)
@@ -537,7 +563,6 @@ public class TabSelector : MonoBehaviour
                 levelss[j] = 1;
             else
                 levelss[j] = 0;
-
         for (int i = 1; i < 26; i++)
         {
             GameObject.Find("level " + i).GetComponentInChildren<Text>().text = (i + m).ToString();
@@ -556,7 +581,6 @@ public class TabSelector : MonoBehaviour
             }
 
         }
-
     }
 
     void WorldProgressCheck()

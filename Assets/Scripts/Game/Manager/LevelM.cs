@@ -93,6 +93,9 @@ public class LevelM : MonoBehaviour
 
         CurrentLevel = new Level();
 
+
+
+
         string jsonformatted = instance.LevelList[Number].text;
 
         if (jsonformatted.Length != 0)
