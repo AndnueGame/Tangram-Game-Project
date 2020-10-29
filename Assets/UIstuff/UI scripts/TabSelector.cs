@@ -186,7 +186,7 @@ public class TabSelector : MonoBehaviour
            goldDone.SetActive(true);
        else goldDone.SetActive(false);
        */
-        if (LevelM.correctForms == LevelM.countForms && LevelM.LevelLoad == true && LevelM.correctForms != 0 && LevelM.countForms != 0 && !winCondition&& level.active)
+        if (LevelM.correctForms >= LevelM.countForms && LevelM.LevelLoad == true && LevelM.correctForms != 0 && LevelM.countForms != 0 && !winCondition&& level.active)
         {
             string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
             winCondition = true;

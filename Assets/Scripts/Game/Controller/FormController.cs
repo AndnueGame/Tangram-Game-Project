@@ -88,7 +88,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         }
         
 
-        LEM.SelectedForm = this.gameObject;
+       // LEM.SelectedForm = this.gameObject;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

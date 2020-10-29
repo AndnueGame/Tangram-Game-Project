@@ -43,6 +43,8 @@ public class LevelM : MonoBehaviour
     {
         instance = this;
 
+        DataM.SetString("progress", "100");
+
         //Loading Textures for Form
         Empty = Resources.Load<Texture2D>("FormEditor/Shape_Empty");
         TriangleDL = Resources.Load<Texture2D>("FormEditor/Shape_TriangleDL");
@@ -53,6 +55,7 @@ public class LevelM : MonoBehaviour
 
         LevelTilesShouldBe = ScriptableObject.CreateInstance<Form>();
         LevelTilesShouldBe.Resize(9, 12);
+      //  LoadLevel(1);
         LevelTilesCurrent = ScriptableObject.CreateInstance<Form>();
         LevelTilesCurrent.Resize(9, 12);
 
@@ -84,12 +87,10 @@ public class LevelM : MonoBehaviour
     static public void NewL()
     {
         instance.Start();
-    
     }
 
     public static bool LoadLevel(int Number, bool AutoGenerate = true)
     {
-
         if (Number < 0 || Number >= instance.LevelList.Count) return false;
 
         CurrentLevel = new Level();
@@ -160,7 +161,7 @@ public class LevelM : MonoBehaviour
     {
         FormController c = null;
 
-        List<Form> forms = MISC.FindAssetsByType<Form>();
+        List<Form> forms = MISC.LoadForms();
 
         for (int x = 0; x < forms.Count; x++)
         {
@@ -313,7 +314,9 @@ public class LevelM : MonoBehaviour
         maxx = 0;
         maxy = 0;
 
-        List<Form> forms = MISC.FindAssetsByType<Form>();
+        LevelTilesShouldBe.Resize(9, 12);
+
+        List<Form> forms = MISC.LoadForms();
 
         foreach (LevelData ld in CurrentLevel.Data)
         {
@@ -340,9 +343,19 @@ public class LevelM : MonoBehaviour
 
                             if (CacheTri.Type != SimpleTriforce.TriforceType.EMPTY)
                             {
-                                if (LevelForm.Get(realX, realY).Type != SimpleTriforce.TriforceType.EMPTY) CacheTri.Type = SimpleTriforce.TriforceType.FILLED;
-                                LevelForm.Set(realX, realY, CacheTri);
-                                LevelTilesShouldBe.Set(realX, realY, CacheTri);
+                                if (LevelForm.Get(realX, realY).Type != SimpleTriforce.TriforceType.EMPTY)
+                                {
+                                    LevelForm.Set(realX, realY, new SimpleTriforce(SimpleTriforce.TriforceType.FILLED));
+                                    LevelTilesShouldBe.Set(realX, realY, new SimpleTriforce(SimpleTriforce.TriforceType.FILLED));
+
+
+                                }
+                                else
+                                {
+                                    LevelForm.Set(realX, realY, CacheTri);
+                                    LevelTilesShouldBe.Set(realX, realY, CacheTri);
+                                }
+                                
 
                                 if (realX < minx) minx = realX;
                                 if (realY < miny) miny = realY;
@@ -465,6 +478,7 @@ public class LevelM : MonoBehaviour
 
         countForms = 0;
         correctForms = 0;
+        
 
         for (int y = 0; y < 12; y++)
         {
