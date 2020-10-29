@@ -256,6 +256,8 @@ public class TabSelector : MonoBehaviour
 
             winCondition = false;
             winScreen.SetActive(false);
+            string[] curLevel = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
+            GameObject.Find("LevelCounter").GetComponent<Text>().text = "Level " + (int.Parse(curLevel[1])+1).ToString();
             level.SetActive(true);
             
             //GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " + currentLevelCount.ToString();
@@ -491,13 +493,14 @@ public class TabSelector : MonoBehaviour
         winCondition = false;
         level.SetActive(false);
         level.SetActive(true);
+        GameObject.Find("LevelCounter").GetComponent<Text>().text = "Level " + GameObject.Find("tl " + button.Split(' ')[1]).GetComponent<Text>().text;
         levelSelection.SetActive(false);
 
 
         
         int.TryParse(button.Split(' ')[1], out currentLevelCount);
 
-        //GameObject.Find("LevelCounter").GetComponent<Text>().text = "Level " + GameObject.Find("tl " + button.Split(' ')[1]).GetComponent<Text>().text;
+        
 
         foreach (Transform child in GameObject.Find("ScaleThem").transform)
         {
