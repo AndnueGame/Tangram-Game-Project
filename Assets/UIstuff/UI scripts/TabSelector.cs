@@ -310,6 +310,15 @@ public class TabSelector : MonoBehaviour
             LevelM.correctForms = 0;
 
             level.SetActive(false);
+            winCondition = false;
+            winScreen.SetActive(false);
+            level.SetActive(true);
+
+           // GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " +name[1];
+            
+            
+           
+
             string[] name = GameObject.Find("LevelCounter").GetComponent<Text>().text.Split(' ');
             foreach (Transform child in GameObject.Find("ScaleThem").transform)
             {
@@ -320,11 +329,7 @@ public class TabSelector : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
-            GameObject.Find("LevelCounter").GetComponent<Text>().text = "level " +name[1];
-            StartCoroutine(waitForFormLoad(name[1], 1));
-            level.SetActive(true);
-            winCondition = false;
-            winScreen.SetActive(false);
+            StartCoroutine(waitForFormLoad(currentLevelCount.ToString(), 1));
         }
 
 
