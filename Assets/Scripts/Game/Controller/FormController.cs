@@ -43,6 +43,8 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         Image FormSprite = this.GetComponent<Image>();
         FormSprite.sprite = LevelSprite;
         FormSprite.color = MISC.GetColorCode(FormBuild.Color);
+        FormSprite.transform.Find("Texture").GetComponent<Image>().color= MISC.GetColorCode(FormBuild.Color);
+        //FormSprite.GetComponentInChildren<GameObject>()//.Find("Gun").gameObject;
         FormSprite.rectTransform.sizeDelta = new Vector2(LevelSprite.texture.width, LevelSprite.texture.height);
         rectTransform.anchoredPosition = new Vector2(xpos, ypos);
     }

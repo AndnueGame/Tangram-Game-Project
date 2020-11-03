@@ -18,6 +18,13 @@ public class MISC : MonoBehaviour
         new Color(000,000,255), //Color3
         new Color(000,255,255), //Color4
         new Color(255,255,255), //Color5
+        /*
+        new Color(255,064,064), //Color1
+        new Color(078,255,078), //Color2
+        new Color(071,071,255), //Color3
+        new Color(070,255,255), //Color4
+        new Color(255,255,255), //Color5
+        */
     };
 
     //Functions ========================================================

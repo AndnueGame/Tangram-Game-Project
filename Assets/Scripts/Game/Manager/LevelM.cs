@@ -218,9 +218,10 @@ public class LevelM : MonoBehaviour
             lem.FormBuild.RotateRight();
         }
 
-        lem.FormBuild.Color = LED.Color;
+        lem.FormBuild.Color = LED.Color;       
         lem.LevelSprite = GenerateFormSprite(lem.FormBuild);
         lem.UpdateImage();
+      
 
         //lem.ChangeColor(100);
         //lem.UpdatePosition();
@@ -298,6 +299,7 @@ public class LevelM : MonoBehaviour
 
         Sprite retSprite = Sprite.Create(Cache, new Rect(0, 0, Cache.width, Cache.height), Vector2.zero);
         retSprite.texture.filterMode = FilterMode.Point;
+
         return retSprite;
     }
 
