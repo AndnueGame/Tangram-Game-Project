@@ -172,7 +172,8 @@ public class LevelM : MonoBehaviour
             {
                 GameObject Cache = Instantiate(FormFrame);
                 Cache.transform.SetParent(LevelFormContainer.transform);
-                Cache.name = "Form";
+                //Cache.name = "Form";
+                Cache.name = forms[x].Name;
 
                 FormController LEMFC = Cache.GetComponent<FormController>();
                 if (LEMFC != null)
