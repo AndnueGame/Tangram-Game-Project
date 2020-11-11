@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
+public class LEM_BottomController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     public Form FormPlan;
     public GameObject imageContainer;
@@ -22,10 +22,10 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
     public Form FormBuild;
     private GameObject Helper;
 
+    public LEM_FormController LEMFC;
+
     public GameObject thisGameObject;
     public LevelData DataSet;
-    
-    public LEM_BottomController LBM;
 
     public int xpos, ypos;
     public bool Init = false;
@@ -37,35 +37,9 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
 
         rectTransform = GetComponent<RectTransform>();
 
-        Transform Cache;
-        Cache = transform.Find("Helper");
-        if (Cache == null)
-        {
-            Debug.LogError("[LEM_FE] Helper not found!");
-            return;
-        }
-        Helper = Cache.gameObject;
 
-        Cache = Cache.Find("RotateRight");
-        if (Cache == null)
-        {
-            Debug.LogError("[LEM_FE] Rotate_Right not found!");
-            return;
-        }
 
-        RotateIcon = Cache.GetComponent<Button>();
-        RotateIcon.onClick.AddListener(Bttn_RotateRight);
 
-        Cache = transform.Find("Helper");
-        Cache = Cache.Find("Options");
-        if (Cache == null)
-        {
-            Debug.LogError("[LEM_FE] Options not found!");
-            return;
-        }
-
-        RotateIcon = Cache.GetComponent<Button>();
-        RotateIcon.onClick.AddListener(Bttn_Settings);
 
         //Loading Textures for Form
         Empty = Resources.Load<Sprite>("FormEditor/Shape_Empty");
@@ -90,24 +64,27 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
         }
 
 
-        Cache = transform.Find("Images");
+        Transform Cache = transform.Find("Images");
         if (Cache == null)
         {
             Debug.LogError("[LEM_FE] Could not find Container!");
             return;
 
-        }else{
+        }
+        else
+        {
             imageContainer = Cache.gameObject;
             GenerateImages();
         }
 
-        if (LEM.New == true) { 
+        if (LEM.New == true)
+        {
             FormBuild.Color = Random.Range(0, MISC.ColorPalette.Count - 1);
         }
         ChangeColor(FormBuild.Color);
 
         thisGameObject = this.gameObject;
-        LEM.lemfcs.Add(this);
+        //LEM.lemfcs.Add(this);
 
         Init = true;
     }
@@ -122,8 +99,8 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
         //Bounds
         if (rectTransform.anchoredPosition.x < 0) rectTransform.anchoredPosition = new Vector2(000, y);
         if (rectTransform.anchoredPosition.y > 0) rectTransform.anchoredPosition = new Vector2(x, 000);
-        if (rectTransform.anchoredPosition.x >  576 - FormBuild.Width  * 32) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32, y);
-        if (rectTransform.anchoredPosition.y < -832 + FormBuild.Height * 32) rectTransform.anchoredPosition = new Vector2(x,-832 + FormBuild.Height * 32);
+        if (rectTransform.anchoredPosition.x > 576 - FormBuild.Width * 32) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32, y);
+        if (rectTransform.anchoredPosition.y < -832 + FormBuild.Height * 32) rectTransform.anchoredPosition = new Vector2(x, -832 + FormBuild.Height * 32);
 
 
         LEM.SelectedForm = this.gameObject;
@@ -149,13 +126,13 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
         x = rectTransform.anchoredPosition.x;
         y = rectTransform.anchoredPosition.y;
 
-        int xf = (int)Mathf.Round(x / 64);
-        int yf = (int)Mathf.Round(y / 64);
+        int xf = (int)Mathf.Round(x / 16);
+        int yf = (int)Mathf.Round(y / 16);
 
-        x = xf * 64;
-        y = yf * 64;
+        x = xf * 16;
+        y = yf * 16;
 
-        rectTransform.anchoredPosition = new Vector2(x,y);
+        rectTransform.anchoredPosition = new Vector2(x, y);
         xpos = (int)x;
         ypos = (int)y;
     }
@@ -164,6 +141,7 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
     {
         Transform Cache;
         Cache = transform.Find("Images");
+        this.transform.localScale = new Vector3(1, 1, 1);
 
         for (int i = Cache.childCount - 1; i >= 0; i--)
         {
@@ -187,7 +165,7 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
                     RectTransform rt = cache.GetComponent<RectTransform>();
 
                     rt.anchoredPosition = Vector2.zero;
-                    rt.anchoredPosition += new Vector2(x * 32 , -y * 32);
+                    rt.anchoredPosition += new Vector2(x * 32, -y * 32);
 
                     if (typeCache != SimpleTriforce.TriforceType.EMPTY)
                     {
@@ -217,6 +195,8 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
 
             }
         }
+        this.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
+
     }
 
 
@@ -225,14 +205,11 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
     {
         FormBuild.RotateRight();
         GenerateImages();
-
-        LBM.FormBuild.RotateRight();
-        LBM.GenerateImages();
     }
 
     void Bttn_Settings()
     {
-        LEM.LEMFC = this;
+        //LEM.LEMFC = this;
         LEM.instance.SwitchSettings(true);
     }
 
@@ -243,7 +220,9 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
         if (LEM.SelectedForm != this.gameObject)
         {
             Helper.SetActive(false);
-        }else{
+        }
+        else
+        {
             Helper.SetActive(true);
         }
     }
@@ -252,14 +231,14 @@ public class LEM_FormController : MonoBehaviour, IDragHandler, IEndDragHandler, 
     {
         FormBuild.Color = Color;
         GameObject Cache = this.transform.Find("Images").gameObject;
-        for(int x=0; x<Cache.transform.childCount; x++)
+        for (int x = 0; x < Cache.transform.childCount; x++)
         {
             Image iTile = Cache.transform.GetChild(x).GetComponent<Image>();
             if (iTile)
             {
                 iTile.color = MISC.GetColorCode(Color);
             }
-        } 
+        }
     }
 
     public void UpdatePosition()

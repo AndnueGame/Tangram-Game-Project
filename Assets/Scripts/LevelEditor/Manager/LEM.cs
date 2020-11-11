@@ -37,6 +37,10 @@ public class LEM : MonoBehaviour
     public GameObject FormFrame;
     private GameObject FormContainer;
 
+    public GameObject FormButtonFrame;
+    public GameObject FormButtonContainer;
+    public LEM_BottomController CurrentBottom;
+
     public static LEM instance;
 
     [HideInInspector]
@@ -146,10 +150,33 @@ public class LEM : MonoBehaviour
                     LEMFCRT.anchorMin = new Vector2(0, 1);
                     LEMFCRT.anchorMax = new Vector2(0, 1);
                     LEMFCRT.pivot = new Vector2(0, 1);
-                    return LEMFC;
+                   // return LEMFC;
 
                 }
                 else{
+                    Debug.LogError("[LEM] No Form Controller found!");
+                }
+
+
+                Cache = Instantiate(FormButtonFrame);
+                Cache.transform.SetParent(FormButtonContainer.transform);
+                Cache.name = "BottomForm";
+
+                LEM_BottomController LEMBC = Cache.GetComponent<LEM_BottomController>();
+                if (LEMBC != null)
+                {
+                    LEMBC.FormPlan = forms[x];
+                    RectTransform LEMFCRT = Cache.GetComponent<RectTransform>();
+                    LEMFCRT.anchoredPosition = Vector2.zero;
+                    LEMFCRT.anchorMin = new Vector2(0, 1);
+                    LEMFCRT.anchorMax = new Vector2(0, 1);
+                    LEMFCRT.pivot = new Vector2(0, 1);
+                    CurrentBottom = LEMBC;
+                    return LEMFC;
+
+                }
+                else
+                {
                     Debug.LogError("[LEM] No Form Controller found!");
                 }
 
@@ -175,6 +202,7 @@ public class LEM : MonoBehaviour
     {
         if (EditorUtility.DisplayDialog("Warning","Do you really wanna delete this form?","Sure!","Nah help me I missclicked!")) {
             lemfcs.Remove(LEMFC);
+            Destroy(LEMFC.LBM.thisGameObject);
             Destroy(LEMFC.thisGameObject);
         }
         SwitchSettings(false);
@@ -184,6 +212,7 @@ public class LEM : MonoBehaviour
     {
         SwitchSettings(false);
         LEMFC.ChangeColor(ColorDD.value);
+        LEMFC.LBM.ChangeColor(ColorDD.value);
     }
 
 
@@ -204,7 +233,7 @@ public class LEM : MonoBehaviour
                     
                     if (Cache != null && dataCache != null)
                     {
-                        StartCoroutine(waitForFormLoad(Cache, dataCache));
+                        StartCoroutine(waitForFormLoad(Cache, CurrentBottom, dataCache));
                     }
                 }
             }
@@ -220,7 +249,7 @@ public class LEM : MonoBehaviour
         }
     }
 
-    public IEnumerator waitForFormLoad(LEM_FormController lem, LevelData LED)
+    public IEnumerator waitForFormLoad(LEM_FormController lem, LEM_BottomController lbm, LevelData LED)
     {
         while(lem.Init == false)
         {
@@ -229,15 +258,25 @@ public class LEM : MonoBehaviour
 
         lem.xpos = LED.x;
         lem.ypos = LED.y;
+
+        lbm.xpos = LED.xinbottom;
+        lbm.ypos = LED.yinbottom;
   
         while (lem.FormBuild.Rotated != LED.RotationState)
         {
             lem.FormBuild.RotateRight();
+            lbm.FormBuild.RotateRight();
         }
 
         lem.GenerateImages();
         lem.ChangeColor(LED.Color);
         lem.UpdatePosition();
+
+        lbm.GenerateImages();
+        lbm.ChangeColor(LED.Color);
+        lbm.UpdatePosition();
+        lem.LBM = lbm;
+        lbm.LEMFC = lem;
 
     }
 
@@ -265,6 +304,8 @@ public class LEM : MonoBehaviour
             cache.RotationState = c.FormBuild.Rotated;
             cache.FormName = c.FormBuild.Name;
             cache.Color = c.FormBuild.Color;
+            cache.xinbottom = c.LBM.xpos;
+            cache.yinbottom = c.LBM.ypos;
             
             string potion = JsonUtility.ToJson(cache);
             json += potion + "\n";

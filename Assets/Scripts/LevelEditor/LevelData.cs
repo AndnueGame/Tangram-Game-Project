@@ -10,4 +10,7 @@ public class LevelData
     public int RotationState;
     public int x;
     public int y;
+
+    public int xinbottom;
+    public int yinbottom;
 }
