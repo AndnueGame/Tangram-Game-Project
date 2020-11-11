@@ -73,6 +73,8 @@ public class LevelM : MonoBehaviour
         LevelHUneven = 0;
         if (LevelWidth % 2 == 1) LevelWUneven = 1;
         if (LevelHeight % 2 == 1) LevelHUneven = 1;
+        if (LevelWUneven == 1) LevelX += 32;
+        if (LevelHUneven == 1) LevelY += 32;
 
         shadow.anchoredPosition = new Vector2(LevelX, LevelY);
         shadow = instance.LevelShadow2.GetComponent<RectTransform>();
@@ -385,7 +387,7 @@ public class LevelM : MonoBehaviour
             for (int x = 0; x < ToCheck.FormBuild.Width; x++)
             {
 
-                int realX = (ToCheck.xpos - (int)LevelM.LevelX) / 64 - 1 +x;
+                int realX = (ToCheck.xpos - (int)LevelM.LevelX) / 64  - 1 +x;
                 int realY = (ToCheck.ypos + (int)LevelM.LevelY + 235) / 64 * -1 - 2 +y;
 
 

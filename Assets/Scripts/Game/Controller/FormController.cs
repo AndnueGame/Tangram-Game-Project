@@ -128,11 +128,11 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
             x = rectTransform.anchoredPosition.x;
             y = rectTransform.anchoredPosition.y;
 
-            int xf = (int)Mathf.Round(x / 32);
-            int yf = (int)Mathf.Round(y / 32);
+            int xf = (int)Mathf.Round(x / 64);
+            int yf = (int)Mathf.Round(y / 64);
 
-            x = xf * 32;
-            y = yf * 32;
+            x = xf * 64 - 32;
+            y = yf * 64 - 32;
             //x = xf * 32 + LevelM.LevelWUneven * 16;
 
             //y = yf * 32 + LevelM.LevelHUneven * 16;
