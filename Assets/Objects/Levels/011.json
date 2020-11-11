@@ -1,5 +1,5 @@
-{"FormName":"Tri2","Color":0,"RotationState":3,"x":0,"y":0}
-{"FormName":"Tri2","Color":1,"RotationState":1,"x":0,"y":0}
-{"FormName":"Dia6","Color":3,"RotationState":0,"x":0,"y":-192}
-{"FormName":"Dia 6.1 ","Color":1,"RotationState":3,"x":192,"y":0}
-{"FormName":"Tri7","Color":0,"RotationState":0,"x":128,"y":-128}
+{"FormName":"Tri2","Color":0,"RotationState":3,"x":0,"y":0,"xinbottom":208,"yinbottom":-16}
+{"FormName":"Tri2","Color":1,"RotationState":1,"x":0,"y":0,"xinbottom":32,"yinbottom":-48}
+{"FormName":"Dia6","Color":3,"RotationState":0,"x":0,"y":-192,"xinbottom":64,"yinbottom":-16}
+{"FormName":"Dia 6.1 ","Color":1,"RotationState":3,"x":192,"y":0,"xinbottom":160,"yinbottom":-48}
+{"FormName":"Tri7","Color":0,"RotationState":0,"x":128,"y":-128,"xinbottom":208,"yinbottom":-80}
