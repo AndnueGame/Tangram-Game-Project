@@ -138,8 +138,8 @@ public class LevelM : MonoBehaviour
                 FormController Cache = instance.SpawnForm(ld.FormName);
                 if (Cache != null && ld != null)
                 {
-                    Cache.xpos = CountX;
-                    Cache.ypos = CountY;
+                    Cache.xpos = ld.xinbottom *2;
+                    Cache.ypos = ld.yinbottom *2;
                     instance.StartCoroutine(instance.waitForFormLoad(Cache, ld));
                 }
 
