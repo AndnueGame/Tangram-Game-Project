@@ -29,6 +29,25 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public float RealX;
     public float RealY;
 
+    public Sprite[] texturesAndShadows;
+
+
+    public List<Color32> ColorPalette = new List<Color32>
+    {
+       /* new Color32(255,136,255,255), //Color1
+        new Color32(000,255,000,255), //Color2
+        new Color32(000,000,255,255), //Color3
+        new Color32(000,255,255,255), //Color4
+        new Color32(255,255,255,255), //Color5
+        */
+        new Color(255,064,064,255), //Color1
+        new Color(078,255,078,255), //Color2
+        new Color(071,071,255,255), //Color3
+        new Color(070,255,255,255), //Color4
+        new Color(255,255,255,255), //Color5
+        
+    };
+
     private void Start()
     {
         FormBuild = ScriptableObject.CreateInstance<Form>();
@@ -44,10 +63,32 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         FormSprite.sprite = LevelSprite;
         //FormSprite.overrideSprite = LevelSprite;
         FormSprite.color = MISC.GetColorCode(FormBuild.Color);
-        FormSprite.transform.Find("Texture").GetComponent<Image>().color= MISC.GetColorCode(FormBuild.Color);
+        //FormSprite.transform.Find("Texture").GetComponent<Image>().color= MISC.GetColorCode(FormBuild.Color);
         //FormSprite.GetComponentInChildren<GameObject>()//.Find("Gun").gameObject;
         FormSprite.rectTransform.sizeDelta = new Vector2(LevelSprite.texture.width, LevelSprite.texture.height);
         rectTransform.anchoredPosition = new Vector2(xpos, ypos);
+
+        this.GetComponent<Image>().enabled = false;
+
+       
+
+        for (int i=0;i<texturesAndShadows.Length;i++)
+        {
+            if (this.name + "texture" == texturesAndShadows[i].name)
+            {
+                this.transform.Find("texture").GetComponent<Image>().sprite = texturesAndShadows[i];
+                this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
+                this.transform.Find("texture").GetComponent<Image>().color = new Color(255, 064, 064,255);// ColorPalette[Random.Range(0, 4)];
+            }
+        }
+        for (int i = 0; i < texturesAndShadows.Length; i++)
+        {
+            if (this.name + "shadow" == texturesAndShadows[i].name)
+            {
+                this.transform.Find("shadow").GetComponent<Image>().sprite = texturesAndShadows[i];
+                this.transform.Find("shadow").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
+            }
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -89,8 +130,8 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                 gameObject.Tween("SizeUp", Vector3.one * 0.5f, Vector3.one * 1, 0.1f, TweenScaleFunctions.CubicEaseIn, updateSize);
             }
         }
-        
 
+        this.transform.Find("shadow").GetComponent<Image>().enabled = true;
        // LEM.SelectedForm = this.gameObject;
     }
 
@@ -168,7 +209,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
         isDrag = false;
         LevelM.RegenerateCurrentLevel();
-        
+        this.transform.Find("shadow").GetComponent<Image>().enabled = false;
 
     }
 
