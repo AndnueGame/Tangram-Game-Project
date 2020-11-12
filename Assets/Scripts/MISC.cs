@@ -13,18 +13,18 @@ public class MISC : MonoBehaviour
 {
     public static List<Color32> ColorPalette = new List<Color32>
     {
-       /* new Color32(255,136,255,255), //Color1
+        new Color32(255,136,255,255), //Color1
         new Color32(000,255,000,255), //Color2
         new Color32(000,000,255,255), //Color3
         new Color32(000,255,255,255), //Color4
         new Color32(255,255,255,255), //Color5
-        */
+        /*
         new Color(255,064,064,255), //Color1
         new Color(078,255,078,255), //Color2
         new Color(071,071,255,255), //Color3
         new Color(070,255,255,255), //Color4
         new Color(255,255,255,255), //Color5
-        
+        */
     };
 
     //Functions ========================================================
