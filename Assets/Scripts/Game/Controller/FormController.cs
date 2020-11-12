@@ -42,6 +42,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     {
         Image FormSprite = this.GetComponent<Image>();
         FormSprite.sprite = LevelSprite;
+        //FormSprite.overrideSprite = LevelSprite;
         FormSprite.color = MISC.GetColorCode(FormBuild.Color);
         FormSprite.transform.Find("Texture").GetComponent<Image>().color= MISC.GetColorCode(FormBuild.Color);
         //FormSprite.GetComponentInChildren<GameObject>()//.Find("Gun").gameObject;

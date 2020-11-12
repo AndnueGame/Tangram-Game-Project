@@ -11,13 +11,13 @@ using System.Linq;
 
 public class MISC : MonoBehaviour
 {
-    public static List<Color> ColorPalette = new List<Color>
+    public static List<Color32> ColorPalette = new List<Color32>
     {
-        new Color(255,000,000), //Color1
-        new Color(000,255,000), //Color2
-        new Color(000,000,255), //Color3
-        new Color(000,255,255), //Color4
-        new Color(255,255,255), //Color5
+        new Color32(255,136,255,255), //Color1
+        new Color32(000,255,000,255), //Color2
+        new Color32(000,000,255,255), //Color3
+        new Color32(000,255,255,255), //Color4
+        new Color32(255,255,255,255), //Color5
         /*
         new Color(255,064,064), //Color1
         new Color(078,255,078), //Color2
@@ -31,7 +31,7 @@ public class MISC : MonoBehaviour
 
     public static Color GetColorCode(int Color)
     {
-        Color ReturnColor = new Color(255, 0, 0);
+        Color32 ReturnColor = new Color32(255, 0, 0, 255);
 
         if (Color >= 0 && Color < ColorPalette.Count)
         {
@@ -40,7 +40,7 @@ public class MISC : MonoBehaviour
 
         if (Color == 100)
         {
-            ReturnColor = new Color(40, 40, 40);
+            ReturnColor = new Color32(40, 40, 40, 255);
         }
 
         return ReturnColor;
