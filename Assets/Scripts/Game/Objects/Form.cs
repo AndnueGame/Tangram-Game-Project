@@ -87,6 +87,7 @@ public class Form : ScriptableObject
         Rotated--;
         if (Rotated < 0) Rotated = 3;
 
+
         Triforces = Cache;
     }
 
@@ -110,6 +111,7 @@ public class Form : ScriptableObject
         Rotated++;
         if (Rotated > 3) Rotated = 0;
 
+        Debug.Log(Rotated);
         Triforces = Cache;
     }
 
