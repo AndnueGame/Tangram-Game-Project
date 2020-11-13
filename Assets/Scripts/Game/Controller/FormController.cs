@@ -75,12 +75,13 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                 this.transform.Find("texture").GetComponent<Image>().color = ColorPalette[Random.Range(0,ColorPalette.Count)];
                 // this.transform.Find("texture").GetComponent<GameObject>().transform.localRotation
                 //this.GetComponent<FormController>.FormBuild.Rotated
-                if(this.GetComponent<FormController>().FormBuild.Rotated == 3)
+                if(this.GetComponent<FormController>().FormBuild.Rotated == 1)
                  this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 90.0f, Space.Self);
+                if (this.GetComponent<FormController>().FormBuild.Rotated == 2)
+                    this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+                if (this.GetComponent<FormController>().FormBuild.Rotated == 3)
+                    this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 270.0f, Space.Self);
 
-               /* if (this.GetComponent<FormController>().FormBuild.Rotated == 0)             
-                    this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, -90.0f, Space.Self);*/
-             
             }
         }
         for (int i = 0; i < texturesAndShadows.Length; i++)
@@ -90,11 +91,12 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                 this.transform.Find("shadow").GetComponent<Image>().sprite = texturesAndShadows[i];
                 this.transform.Find("shadow").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
 
-                if (this.GetComponent<FormController>().FormBuild.Rotated == 3)
+                if (this.GetComponent<FormController>().FormBuild.Rotated == 1)
                     this.transform.Find("shadow").transform.Rotate(0.0f, 0.0f, 90.0f, Space.Self);
-
-             /*   if (this.GetComponent<FormController>().FormBuild.Rotated == 0)
-                    this.transform.Find("shadow").transform.Rotate(0.0f, 0.0f, -90.0f, Space.Self);*/
+                if (this.GetComponent<FormController>().FormBuild.Rotated == 2)
+                    this.transform.Find("shadow").transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+                if (this.GetComponent<FormController>().FormBuild.Rotated == 3)
+                    this.transform.Find("shadow").transform.Rotate(0.0f, 0.0f, 270.0f, Space.Self);
             }
         }       
 
