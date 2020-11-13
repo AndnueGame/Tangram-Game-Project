@@ -25,6 +25,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     private Vector2 StartPosition;
     public bool isDrag = false;
     bool wasInBottom = true;
+    private Vector2 pickupoffset;
 
     public float RealX;
     public float RealY;
@@ -107,7 +108,13 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
             gameObject.transform.localScale = t.CurrentValue;
         };
 
-        rectTransform.anchoredPosition += eventData.delta;
+        //rectTransform.anchoredPosition += eventData.delta;
+
+        Vector2 pos;
+        // use parent racttransform
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(gameObject.transform.parent.GetComponent<RectTransform>(), eventData.position, eventData.enterEventCamera, out pos);
+
+        rectTransform.localPosition = pos + pickupoffset;
 
         float x = rectTransform.anchoredPosition.x;
         float y = rectTransform.anchoredPosition.y;
