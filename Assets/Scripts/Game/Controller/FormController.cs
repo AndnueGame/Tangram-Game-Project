@@ -156,6 +156,9 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         transform.SetSiblingIndex(transform.childCount);
         StartPosition = rectTransform.anchoredPosition;
 
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(gameObject.transform.parent.GetComponent<RectTransform>(), eventData.position, eventData.enterEventCamera, out pickupoffset);
+        pickupoffset = (Vector2)gameObject.transform.localPosition - pickupoffset;
+
         isDrag = true;
         wasInBottom = true;
         if (isInFormContainer == false) wasInBottom = false;
