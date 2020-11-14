@@ -70,17 +70,18 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         {
             if (this.name + "texture" == texturesAndShadows[i].name)
             {
+       
                 this.transform.Find("texture").GetComponent<Image>().sprite = texturesAndShadows[i];
                 this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
                 this.transform.Find("texture").GetComponent<Image>().color = ColorPalette[Random.Range(0,ColorPalette.Count)];
-                // this.transform.Find("texture").GetComponent<GameObject>().transform.localRotation
-                //this.GetComponent<FormController>.FormBuild.Rotated
-                if(this.GetComponent<FormController>().FormBuild.Rotated == 1)
-                 this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 90.0f, Space.Self);
+
+                if (this.GetComponent<FormController>().FormBuild.Rotated == 1)
+                    this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 90.0f, Space.Self);
                 if (this.GetComponent<FormController>().FormBuild.Rotated == 2)
                     this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
                 if (this.GetComponent<FormController>().FormBuild.Rotated == 3)
                     this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, 270.0f, Space.Self);
+
 
             }
         }

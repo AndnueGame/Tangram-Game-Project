@@ -611,9 +611,9 @@ public class TabSelector : MonoBehaviour
 
 
         if(state==0)
-        LevelM.LoadLevel(c1);
+        LevelM.LoadLevel(c1-1);
         if( state == 1)
-            LevelM.LoadLevel(c2);       
+            LevelM.LoadLevel(c2-1);       
     }
 
     void LevelSelection(string button)

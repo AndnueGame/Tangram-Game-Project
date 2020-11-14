@@ -266,15 +266,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e497f70e6fba31a42b97e5fca33a5f34, type: 3}
   ColorPalette:
   - serializedVersion: 2
-    rgba: 4278190335
+    rgba: 4283190527
   - serializedVersion: 2
-    rgba: 4278232821
+    rgba: 4281842424
   - serializedVersion: 2
-    rgba: 4293329151
+    rgba: 4293807359
   - serializedVersion: 2
-    rgba: 4280680192
+    rgba: 4287102834
   - serializedVersion: 2
-    rgba: 4294906938
+    rgba: 4294924403
+  - serializedVersion: 2
+    rgba: 4294947904
+  - serializedVersion: 2
+    rgba: 4282253255
+  - serializedVersion: 2
+    rgba: 4288495103
 --- !u!114 &6548102618217275041
 MonoBehaviour:
   m_ObjectHideFlags: 0
