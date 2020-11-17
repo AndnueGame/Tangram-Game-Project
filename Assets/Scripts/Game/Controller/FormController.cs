@@ -65,7 +65,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
        
 
 
-
+        
         for (int i=0;i<texturesAndShadows.Length;i++)
         {
             if (this.name + "texture" == texturesAndShadows[i].name)
@@ -100,7 +100,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                     this.transform.Find("shadow").transform.Rotate(0.0f, 0.0f, 270.0f, Space.Self);
             }
         }       
-
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -174,7 +174,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         {
             if (rectTransform.anchoredPosition.x < 0) rectTransform.anchoredPosition = new Vector2(000, y);
             if (rectTransform.anchoredPosition.y > 0) rectTransform.anchoredPosition = new Vector2(x, 000);
-            if (rectTransform.anchoredPosition.x >  576 - FormBuild.Width  * 32) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32, y);
+            if (rectTransform.anchoredPosition.x > 576 - FormBuild.Width * 32) rectTransform.anchoredPosition = new Vector2(576 - FormBuild.Width * 32, y);
             if (rectTransform.anchoredPosition.y < -832 + FormBuild.Height * 32) rectTransform.anchoredPosition = new Vector2(x, -832 + FormBuild.Height * 32);
 
 
@@ -207,8 +207,8 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                     gameObject.Tween("SizeUp", Vector3.one, Vector3.one * 0.5f, 0.1f, TweenScaleFunctions.CubicEaseIn, updateSize);
                     isInFormContainer = true;
                     rectTransform.anchoredPosition = StartPosition;
-                    xpos = (int) StartPosition.x;
-                    ypos = (int) StartPosition.y;
+                    xpos = (int)StartPosition.x;
+                    ypos = (int)StartPosition.y;
                 }
                 else
                 {
@@ -217,6 +217,12 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
                     ypos = (int)StartPosition.y;
                 }
             }
+        }else{
+
+            if (x < 0) x = 0;
+            if (x > 600 - FormBuild.Width * 32) x = 600 - FormBuild.Width * 32;
+            if (y < -350 + FormBuild.Height * 32) y = -350 + FormBuild.Width * 32;
+            rectTransform.anchoredPosition = new Vector2(x, y);
         }
 
         isDrag = false;
