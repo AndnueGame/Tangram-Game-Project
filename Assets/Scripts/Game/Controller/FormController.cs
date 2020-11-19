@@ -61,17 +61,23 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         FormSprite.rectTransform.sizeDelta = new Vector2(LevelSprite.texture.width, LevelSprite.texture.height);
         rectTransform.anchoredPosition = new Vector2(xpos, ypos);
 
-        //this.GetComponent<Image>().enabled = false;
+        this.GetComponent<Image>().enabled = false;
        
 
 
         
         for (int i=0;i<texturesAndShadows.Length;i++)
         {
+          /*  if (this.name + "texture" == "Tri3texture" || this.name + "texture" == "Tri5texture")
+            {
+                this.transform.Find("texture").GetComponent < Image>().sprite= texturesAndShadows[15];
+                //FormSprite.sprite = texturesAndShadows[15];
+            }*/
+           
             if (this.name + "texture" == texturesAndShadows[i].name)
             {
-       
-                FormSprite.sprite = texturesAndShadows[i];
+                this.transform.Find("texture").GetComponent<Image>().sprite = texturesAndShadows[i];
+               // FormSprite.sprite = texturesAndShadows[i];
 
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // README
@@ -86,8 +92,20 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
 
             }
-        }  
+        }
         
+        this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, this.GetComponent<FormController>().FormBuild.Rotated * 90f, Space.Self);        
+        this.transform.Find("texture").GetComponent<Image>().color = ColorPalette[Random.Range(0, ColorPalette.Count)];
+        if (this.name== "Tri3" && this.FormBuild.Rotated==1/* || this.name + "texture" == "Tri5texture"*/)
+        {
+            this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = new Vector2(this.GetComponent<RectTransform>().sizeDelta.y, this.GetComponent<RectTransform>().sizeDelta.x);
+        }
+        if (this.name == "Tri5" && this.FormBuild.Rotated == 3/* || this.name + "texture" == "Tri5texture"*/)
+        {
+            this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = new Vector2(this.GetComponent<RectTransform>().sizeDelta.y, this.GetComponent<RectTransform>().sizeDelta.x);
+        }
+        else
+        this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
     }
 
     public void OnDrag(PointerEventData eventData)
