@@ -32,7 +32,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public Sprite[] texturesAndShadows;
 
 
-    public List<Color32> ColorPalette = new List<Color32>    
+    public List<Color32> ColorPalette = new List<Color32>
     {
         new Color32(255,064,064,255), //Color1
         new Color32(078,255,078,255), //Color2
@@ -47,7 +47,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         FormPlan.CloneTo(FormBuild);
         rectTransform = GetComponent<RectTransform>();
         Init = true;
-        
+
     }
 
     public void UpdateImage()
@@ -62,50 +62,64 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         rectTransform.anchoredPosition = new Vector2(xpos, ypos);
 
         this.GetComponent<Image>().enabled = false;
-       
 
 
-        
-        for (int i=0;i<texturesAndShadows.Length;i++)
+
+
+        for (int i = 0; i < texturesAndShadows.Length; i++)
         {
-          /*  if (this.name + "texture" == "Tri3texture" || this.name + "texture" == "Tri5texture")
-            {
-                this.transform.Find("texture").GetComponent < Image>().sprite= texturesAndShadows[15];
-                //FormSprite.sprite = texturesAndShadows[15];
-            }*/
-           
+
             if (this.name + "texture" == texturesAndShadows[i].name)
             {
                 this.transform.Find("texture").GetComponent<Image>().sprite = texturesAndShadows[i];
-               // FormSprite.sprite = texturesAndShadows[i];
-
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                // README
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                // Because rotating shifts the position
-                // Just rotate the images in Photoshop etc
-                // and put the rotated versions also in the list
-                // Then load it.
-                //
-                // Check it with rotationstate again (from FormBuild)
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
+            }
+            if (this.name + "shadow" == texturesAndShadows[i].name)
+            {
+                this.transform.Find("shadow").GetComponent<Image>().sprite = texturesAndShadows[i];
             }
         }
-        
-        this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, this.GetComponent<FormController>().FormBuild.Rotated * 90f, Space.Self);        
+
+        this.transform.Find("texture").transform.Rotate(0.0f, 0.0f, this.GetComponent<FormController>().FormBuild.Rotated * 90f, Space.Self);
         this.transform.Find("texture").GetComponent<Image>().color = ColorPalette[Random.Range(0, ColorPalette.Count)];
-        if (this.name== "Tri3" && this.FormBuild.Rotated==1/* || this.name + "texture" == "Tri5texture"*/)
+        this.transform.Find("texture").GetComponent<Image>().preserveAspect = true;
+        //this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
+
+        float max = Compare(this.GetComponent<RectTransform>().sizeDelta.x, this.GetComponent<RectTransform>().sizeDelta.y);    
+
+
+        this.transform.Find("shadow").transform.Rotate(0.0f, 0.0f, this.GetComponent<FormController>().FormBuild.Rotated * 90f, Space.Self);       
+        this.transform.Find("shadow").GetComponent<Image>().preserveAspect = true;
+        this.transform.Find("shadow").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
+
+
+        this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = new Vector2(max, max);
+        this.transform.Find("shadow").GetComponent<RectTransform>().sizeDelta = new Vector2(max, max);
+       // this.transform.Find("shadow").GetComponent<RectTransform>().transform.position = new Vector2(7,-7);
+
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // README
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // Because rotating shifts the position
+        // Just rotate the images in Photoshop etc
+        // and put the rotated versions also in the list
+        // Then load it.
+        //
+        // Check it with rotationstate again (from FormBuild)
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /* || this.name + "texture" == "Tri5texture"
         {
             this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = new Vector2(this.GetComponent<RectTransform>().sizeDelta.y, this.GetComponent<RectTransform>().sizeDelta.x);
         }
-        if (this.name == "Tri5" && this.FormBuild.Rotated == 3/* || this.name + "texture" == "Tri5texture"*/)
-        {
+        if (this.name == "Tri5" && this.FormBuild.Rotated == 3/* || this.name + "texture" == "Tri5texture"*
+       /* {
             this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = new Vector2(this.GetComponent<RectTransform>().sizeDelta.y, this.GetComponent<RectTransform>().sizeDelta.x);
         }
-        else
-        this.transform.Find("texture").GetComponent<RectTransform>().sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
+        else*/
+
+    }
+    private float Compare(float a, float b)
+    {
+        return a > b ? a : b;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -232,7 +246,7 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
         isDrag = false;
         LevelM.RegenerateCurrentLevel();
-        //this.transform.Find("shadow").GetComponent<Image>().enabled = false;
+        this.transform.Find("shadow").GetComponent<Image>().enabled = false;
 
     }
 
