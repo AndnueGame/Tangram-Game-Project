@@ -1,4 +1,4 @@
-{"FormName":"Tri2","Color":2,"RotationState":2,"x":0,"y":0}
-{"FormName":"Tri3","Color":3,"RotationState":0,"x":192,"y":-64}
-{"FormName":"Tri3.1","Color":3,"RotationState":1,"x":192,"y":0}
-{"FormName":"Squ4","Color":0,"RotationState":1,"x":256,"y":0}
+{"FormName":"Tri2","Color":2,"RotationState":2,"x":0,"y":0,"xinbottom":208,"yinbottom":-32}
+{"FormName":"Tri3","Color":3,"RotationState":0,"x":192,"y":-64,"xinbottom":80,"yinbottom":-16}
+{"FormName":"Tri3.1","Color":3,"RotationState":1,"x":192,"y":0,"xinbottom":32,"yinbottom":-64}
+{"FormName":"Squ4","Color":0,"RotationState":1,"x":256,"y":0,"xinbottom":144,"yinbottom":-48}

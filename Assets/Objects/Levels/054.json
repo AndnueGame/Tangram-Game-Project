@@ -1,6 +1,6 @@
-{"FormName":"Tri1","Color":0,"RotationState":1,"x":0,"y":0}
-{"FormName":"Tri3","Color":1,"RotationState":2,"x":64,"y":-64}
-{"FormName":"Squ4","Color":0,"RotationState":1,"x":128,"y":-64}
-{"FormName":"Tri3","Color":0,"RotationState":1,"x":192,"y":0}
-{"FormName":"Tri3.1","Color":3,"RotationState":3,"x":0,"y":-128}
-{"FormName":"Dia6","Color":3,"RotationState":3,"x":256,"y":0}
+{"FormName":"Tri1","Color":0,"RotationState":1,"x":0,"y":0,"xinbottom":176,"yinbottom":-32}
+{"FormName":"Tri3","Color":1,"RotationState":2,"x":64,"y":-64,"xinbottom":64,"yinbottom":-16}
+{"FormName":"Squ4","Color":0,"RotationState":1,"x":128,"y":-64,"xinbottom":240,"yinbottom":-80}
+{"FormName":"Tri3","Color":0,"RotationState":1,"x":192,"y":0,"xinbottom":112,"yinbottom":-80}
+{"FormName":"Tri3.1","Color":3,"RotationState":3,"x":0,"y":-128,"xinbottom":240,"yinbottom":-16}
+{"FormName":"Dia6","Color":3,"RotationState":3,"x":256,"y":0,"xinbottom":32,"yinbottom":-48}
