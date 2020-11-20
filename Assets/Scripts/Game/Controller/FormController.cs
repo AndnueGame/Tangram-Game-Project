@@ -238,9 +238,9 @@ public class FormController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
             }
         }else{
 
-            if (x < 0) x = 0;
-            if (x > 600 - FormBuild.Width * 32) x = 600 - FormBuild.Width * 32;
-            if (y < -350 + FormBuild.Height * 32) y = -350 + FormBuild.Width * 32;
+            if (x < 10) x = 10;
+            if (x > 580 - FormBuild.Width * 32) x = 580 - FormBuild.Width * 32;
+            if (y < -290 + FormBuild.Height * 32) y = -290 + FormBuild.Height * 32;
             rectTransform.anchoredPosition = new Vector2(x, y);
         }
 
